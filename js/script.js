@@ -159,3 +159,23 @@ function toggleMenu() {
     const menuLinks = document.querySelector('.menu-links');
     menuLinks.classList.toggle('show');
 }
+
+// Función para establecer la clase activa en el enlace correspondiente
+function setActiveLink() {
+    const links = document.querySelectorAll('nav a');
+    const currentPath = window.location.pathname;
+
+    links.forEach(link => {
+        // Remover clase activa de todos los enlaces
+        link.classList.remove('active');
+
+        // Comparar href del enlace con la ruta actual
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Llamar a la función cuando se cargue la página
+document.addEventListener('DOMContentLoaded', setActiveLink);
+
