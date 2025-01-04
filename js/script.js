@@ -137,6 +137,13 @@ ${bebidasSeleccionadas.join('\n')}
 ${importes.join('\n')}
 \n-----------------------
 *Total: $${total.toLocaleString('es-AR')}*`;
+
+const resetearPedidoBtn = document.getElementById('resetear-pedido');
+if (totalEmpanadas > 0 || totalBebidas > 0) {
+    resetearPedidoBtn.style.display = 'inline-block';
+} else {
+    resetearPedidoBtn.style.display = 'none';
+}
 }
 
 // Función para enviar pedido
@@ -179,3 +186,26 @@ function setActiveLink() {
 // Llamar a la función cuando se cargue la página
 document.addEventListener('DOMContentLoaded', setActiveLink);
 
+function confirmarResetear() {
+    const confirmacion = confirm("¿Seguro que desea eliminar la selección?");
+    if (confirmacion) {
+        resetearSeleccion();
+    }
+}
+
+function resetearSeleccion() {
+    // Reiniciar las cantidades
+    cantidadesEmpanadas.fill(0);
+    cantidadesBebidas.fill(0);
+
+    // Actualizar visualmente
+    empanadas.forEach((_, index) => {
+        document.getElementById(`cantidad-empanada-${index}`).innerText = 0;
+    });
+
+    bebidas.forEach((_, index) => {
+        document.getElementById(`cantidad-bebida-${index}`).innerText = 0;
+    });
+
+    actualizarDetalle(); // Actualizar el desglose
+}

@@ -353,4 +353,24 @@ body, html {
     }
 }
 
+#resetear-pedido {
+    background-color: rgb(198, 50, 50); /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Botón circular */
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#resetear-pedido:hover {
+    background-color: rgb(255, 80, 80);
+}
+
+#resetear-pedido:active {
+    transform: scale(0.9);
+}
 
