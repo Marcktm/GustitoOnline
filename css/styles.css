@@ -2,6 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playwrite+AU+TAS:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Noto+Sans+Gothic&family=Playwrite+AU+TAS:wght@100..400&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
+
 /* Estilo global para Playwrite AU TAS en el menú */
 nav a {
     font-family: "Playwrite AU TAS", serif;
