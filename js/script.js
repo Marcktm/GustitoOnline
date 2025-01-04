@@ -29,7 +29,7 @@ function generarProductos() {
         productDiv.innerHTML = `
             <div class="product-details">
                 <img src="img/${empanada.nombre.toLowerCase()}.jpg" alt="${empanada.nombre}">
-                <span class="playwrite-au-tas-empanadas">${empanada.nombre} - $${empanada.precio}</span>
+                <span class="playwrite-au-tas-empanadas">${empanada.nombre}</span>
             </div>
             <div>
                 <button onclick="cambiarCantidadEmpanada(${index}, 6)">+6</button>
@@ -90,8 +90,8 @@ function actualizarDetalle() {
     // Detalle de empanadas
     empanadas.forEach((empanada, index) => {
         if (cantidadesEmpanadas[index] > 0) {
-            comanda.push(`-${cantidadesEmpanadas[index]} de ${empanada.nombre}`);
-            desgloseHTML += `<p class="sangria">${cantidadesEmpanadas[index]} de ${empanada.nombre}</p>`;
+            comanda.push(`-${cantidadesEmpanadas[index]} ${empanada.nombre}`);
+            desgloseHTML += `<p class="sangria">${cantidadesEmpanadas[index]} ${empanada.nombre}</p>`;
             totalEmpanadas += cantidadesEmpanadas[index] * empanada.precio;
         }
     });
@@ -99,8 +99,8 @@ function actualizarDetalle() {
     // Detalle de bebidas
     bebidas.forEach((bebida, index) => {
         if (cantidadesBebidas[index] > 0) {
-            bebidasSeleccionadas.push(`-${cantidadesBebidas[index]} de ${bebida.nombre}`);
-            desgloseHTML += `<p class="sangria">${cantidadesBebidas[index]} de ${bebida.nombre}</p>`;
+            bebidasSeleccionadas.push(`-${cantidadesBebidas[index]} ${bebida.nombre}`);
+            desgloseHTML += `<p class="sangria">${cantidadesBebidas[index]} ${bebida.nombre}</p>`;
             totalBebidas += cantidadesBebidas[index] * bebida.precio;
         }
     });
@@ -141,10 +141,18 @@ ${importes.join('\n')}
 
 // Función para enviar pedido
 function enviarPedido() {
+    if (mensajePedido.trim() === "") {
+        alert("No has seleccionado ningún producto.");
+        return;
+    }
+    if (!confirm("¿Estás seguro de que deseas enviar este pedido?")) {
+        return;
+    }
     const numeroWhatsApp = "5493515598947";
     const mensajeCodificado = encodeURIComponent(mensajePedido);
     window.open(`https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`, '_blank');
 }
+
 
 // Función para mostrar/ocultar el menú
 function toggleMenu() {

@@ -52,6 +52,14 @@ h1, h2 {
     font-size: 70px;
 }
 
+.subtitulos {
+    text-align:left;
+    font-family: "Caveat", cursive;
+    font-weight: 50;
+    font-style: normal;
+    font-size: 50px;
+}
+
 /* Estilos para productos */
 .product {
     display: flex;
@@ -233,3 +241,12 @@ nav a:hover, nav a.active {
 #realizar-pedido:active {
     transform: scale(0.95);
 }
+
+.linea-divisoria {
+    width: 80%; /* Ajusta el ancho de la línea */
+    margin: 20px auto; /* Centrar horizontalmente y agregar espaciado */
+    border: none; /* Elimina el borde predeterminado */
+    border-top: 2px solid rgb(119, 6, 0); /* Línea sólida con color marrón */
+    opacity: 0.7; /* Hace la línea ligeramente translúcida */
+}
+
