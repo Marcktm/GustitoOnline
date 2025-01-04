@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gustito a Salta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlaza tu archivo CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776; <!-- Ícono de menú hamburguesa -->
+        </div>
+        <div class="menu-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="/template/quienes-somos.html">Quiénes Somos</a>
+        </div>
+    </nav>
+    
+    <!-- Franja morada de separación -->
+    <div class="separator"></div>
+    <div class="container">
+        <h1 class="titulo-principal">Gustito a Salta</h1>
+
+        <!-- Sección de Empanadas -->
+        <h2>Empanadas</h2>
+        <div id="empanadas">
+            <!-- Los productos de empanadas se generarán aquí -->
+        </div>
+
+        <!-- Sección de Gaseosas -->
+        <h2>Bebidas</h2>
+        <div id="bebidas">
+            <!-- Los productos de gaseosas se generarán aquí -->
+        </div>
+
+        <!-- Desglose -->
+        <h2>Detalle:</h2>
+        <div id="desglose">
+            <!-- Aquí se mostrará el desglose -->
+        </div>
+
+        <!-- Total -->
+        <h2>Total: <span id="total">$0</span></h2>
+
+        <!-- Botón para realizar pedido -->
+        <div id="pedido">
+            <button id="realizar-pedido" onclick="enviarPedido()">Realizar Pedido</button>
+        </div>
+    </div>
+    <!-- Enlaza tu archivo JavaScript -->
+    <script src="/js/script.js"></script>
+</body>
+</html>

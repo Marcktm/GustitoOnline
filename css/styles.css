@@ -1,0 +1,235 @@
+/* Importar la fuente al inicio del archivo */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playwrite+AU+TAS:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Noto+Sans+Gothic&family=Playwrite+AU+TAS:wght@100..400&display=swap');
+
+/* Estilo global para Playwrite AU TAS en el menú */
+nav a {
+    font-family: "Playwrite AU TAS", serif;
+    font-weight: 400; /* Ajusta según el peso deseado */
+}
+
+/* Otras áreas donde aplicar Caveat */
+.menu-links {
+    font-family: "Caveat", cursive;
+    font-weight: 700; /* Ajusta según el peso deseado */
+}
+
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 188, 1); /* Fondo amarillo */
+    font-size: 16px;
+}
+
+h1, h2 {
+    font-family: "Caveat", cursive;
+    margin: 10px 0;
+    color: rgb(119, 6, 0);
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    padding: 0 10px;
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 600px) {
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+/* Estilos para el título principal */
+.titulo-principal {
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 70px;
+}
+
+/* Estilos para productos */
+.product {
+    display: flex;
+    flex-direction: column; /* Apilar verticalmente por defecto */
+    justify-content: flex-start; /* Alinear elementos al inicio del eje vertical */
+    align-items: flex-start; /* Alinear elementos al inicio (izquierda) en el eje horizontal */
+    margin: 10px 0;
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 600px) {
+    .product {
+        flex-direction: row; /* Cambiar a fila en pantallas grandes */
+        justify-content: space-between; /* Distribuir espacio entre elementos */
+        align-items: center; /* Centrar elementos verticalmente */
+    }
+}
+
+/* Imagen y detalles del producto */
+.product-details {
+    display: flex;
+    align-items: center;
+}
+
+.product-details img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+/* Botones personalizados */
+button {
+    background-color: rgb(119, 6, 0); /* Marrón */
+    color: rgb(255, 188, 1); /* Amarillo */
+    border: none;
+    border-radius: 35%;
+    padding: 10px;
+    font-size: 16px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 2px; /* Espaciado entre botones */
+}
+
+button:hover {
+    background-color: rgb(198, 50, 50);
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+/* Estilos para el menú de navegación */
+nav {
+    background-color: rgb(119, 6, 0); /* Marrón oscuro */
+    padding: 10px;
+    position: relative;
+}
+
+.menu-icon {
+    display: none; /* Oculto por defecto */
+    font-size: 24px;
+    color: rgb(255, 188, 1);
+    cursor: pointer;
+}
+
+.menu-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a {
+    color: rgb(255, 188, 1); /* Amarillo */
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+nav a:hover, nav a.active {
+    background-color: rgb(255, 188, 1); /* Amarillo */
+    color: rgb(119, 6, 0); /* Marrón oscuro */
+    font-weight: bold;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 599px) {
+    .menu-icon {
+        display: block; /* Mostrar ícono en pantallas pequeñas */
+    }
+
+    .menu-links {
+        display: none; /* Ocultar enlaces por defecto */
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav a {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .menu-links.show {
+        display: flex; /* Mostrar enlaces cuando el menú está abierto */
+    }
+}
+
+/* Estilos para el desglose */
+#desglose {
+    background-color: rgb(119, 6, 0); /* Fondo marrón */
+    color: rgb(255, 188, 1); /* Letras amarillas */
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#desglose .sangria {
+    margin-left: 20px;
+}
+
+#desglose .linea-separadora {
+    border: none;
+    border-top: 1px solid rgb(255, 188, 1); /* Línea amarilla */
+    margin: 10px 0;
+}
+
+#desglose .precios .sangria {
+    font-weight: bold;
+}
+
+#desglose p {
+    margin: 5px 0;
+}
+
+/* Estilo para los nombres de empanadas */
+.playwrite-au-tas-empanadas {
+    font-family: "Playwrite AU TAS", serif;
+    font-weight: 500; /* Ajusta el peso según prefieras */
+    font-style: normal;
+    color: rgb(119, 6, 0);
+}
+
+/* Estilo para los nombres de bebidas */
+.caveat-bebidas {
+    font-family: "Playwrite AU TAS", serif;
+    font-weight: 500; /* Ajusta según el diseño deseado */
+    font-style: normal;
+    color: rgb(119, 6, 0);
+}
+
+#pedido {
+    text-align:center;
+    margin-top: 20px;
+}
+
+#realizar-pedido {
+    background-color: rgb(119, 6, 0); /* Marrón oscuro */
+    color: rgb(255, 188, 1); /* Amarillo */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+#realizar-pedido:hover {
+    background-color: rgb(255, 188, 1);
+    color: rgb(119, 6, 0);
+}
+
+#realizar-pedido:active {
+    transform: scale(0.95);
+}
