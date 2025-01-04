@@ -3,7 +3,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Noto+Sans+Gothic&family=Playwrite+AU+TAS:wght@100..400&display=swap');
 
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* Padding incluido en el ancho */
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    overflow-x: hidden; /* Evitar scroll horizontal */
+    max-width: 100vw; /* Restringir el ancho al viewport */
 }
 
 
