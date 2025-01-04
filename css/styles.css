@@ -318,3 +318,39 @@ body, html {
     opacity: 0.7; /* Hace la línea ligeramente translúcida */
 }
 
+/* Forzar el tema claro siempre */
+@media (prefers-color-scheme: dark) {
+    body, html {
+        background-color: rgb(255, 188, 1); /* Fondo claro */
+        color: rgb(119, 6, 0); /* Texto oscuro */
+    }
+
+    nav {
+        background-color: rgb(119, 6, 0); /* Mantener el menú marrón */
+    }
+
+    #desglose {
+        background-color: rgb(119, 6, 0); /* Fondo marrón */
+        color: rgb(255, 188, 1); /* Texto amarillo */
+    }
+
+    #realizar-pedido {
+        background-color: rgb(119, 6, 0); /* Botón marrón oscuro */
+        color: rgb(255, 188, 1); /* Texto amarillo */
+    }
+
+    .menu-links a {
+        color: rgb(255, 188, 1); /* Enlaces amarillos */
+    }
+
+    .menu-links a:hover {
+        background-color: rgb(255, 188, 1); /* Fondo amarillo */
+        color: rgb(119, 6, 0); /* Texto marrón oscuro */
+    }
+
+    .linea-divisoria {
+        border-top: 2px solid rgb(255, 188, 1); /* Línea amarilla */
+    }
+}
+
+
