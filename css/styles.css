@@ -158,6 +158,14 @@ body, html {
 
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 599px) {
+
+    .titulo-principal {
+        text-align:center; /* Centra el texto */
+        font-size: 80px; /* Tamaño de fuente más pequeño para pantallas móviles */
+        margin: 20px 0; /* Espaciado superior e inferior */
+        line-height: 1.5; /* Mejora la legibilidad */
+    }
+
     nav {
         position:relative; /* oculta el menu al hacer scroll */
         top: 0;
