@@ -157,7 +157,7 @@ body, html {
 }
 
 /* Ajustes para pantallas pequeñas */
-@media (max-width: 599px) {
+@media (max-width: 767px) {
 
     .titulo-principal {
         text-align:center; /* Centra el texto */
