@@ -159,7 +159,7 @@ body, html {
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 599px) {
     nav {
-        position: fixed; /* Mantener el menú fijo al hacer scroll */
+        position:relative; /* oculta el menu al hacer scroll */
         top: 0;
         left: 0;
         width: 100%; /* Ocupa todo el ancho */
@@ -201,6 +201,22 @@ body, html {
         background-color: rgb(255, 188, 1); /* Fondo amarillo en hover */
         color: rgb(119, 6, 0); /* Texto marrón oscuro */
     }
+
+    #desglose {
+        width: 80%; /* Ancho del recuadro */
+        max-width: 600px; /* Limitar ancho máximo */
+        margin: 10px auto; /* Centrado horizontal */
+        padding: 15px; /* Espaciado interno */
+        background-color: rgb(119, 6, 0); /* Fondo marrón */
+        color: rgb(255, 188, 1); /* Texto amarillo */
+        border-radius: 10px; /* Bordes redondeados */
+        box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+        display: flex; /* Usar flexbox para ajustar */
+        flex-direction: column; /* Asegura que el contenido esté en columna */
+        justify-content: center; /* Centra contenido verticalmente */
+    }
+    
+
 }
 
 
