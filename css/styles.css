@@ -358,9 +358,9 @@ body, html {
     color: white;
     border: none;
     border-radius: 50%; /* Botón circular */
-    width: 45px;
-    height: 45px;
-    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
     cursor: pointer;
     margin-left: 10px;
     transition: background-color 0.3s ease;
@@ -374,3 +374,26 @@ body, html {
     transform: scale(0.9);
 }
 
+.sin-stock {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Contenedor de los precios (Individual, Media Docena, Docena) */
+.precios-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* por si en pantallas pequeñas se quiebran en varias líneas */
+    margin: 20px 0;
+}
+
+.precio-item {
+    margin: 10px 20px;
+    text-align: center;
+}
+
+.sin-stock {
+    opacity: 0.5;         /* Se ve más claro */
+    pointer-events: none; /* No permite clicks */
+}
