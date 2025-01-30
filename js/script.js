@@ -503,11 +503,15 @@ ${importes.join('\n')}
  * Enviar pedido
  */
 function enviarPedido() {
+    const totalEmpanadasSel = cantidadesEmpanadas.reduce((a, b) => a + b, 0);
+    const totalBebidasSel   = cantidadesBebidas.reduce((a, b) => a + b, 0);
+    
     // Verificamos si hay algo
-    if (mensajePedido.trim() === "") {
+    if (totalEmpanadasSel === 0 && totalBebidasSel === 0) {
         customAlert("No has seleccionado ningún producto.");
         return;
     }
+
     customConfirm("¿Estás seguro de que deseas enviar este pedido?", (respuesta) => {
         if (!respuesta) {
             return;
