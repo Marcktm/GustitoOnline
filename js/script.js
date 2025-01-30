@@ -18,6 +18,43 @@ let cantidadesEmpanadas = [];
 let cantidadesBebidas = [];
 let mensajePedido = "";
 
+/** ===========================
+ * 1) Verificar estado página
+    ===========================*/
+    async function verificarEstadoPagina() {
+        try {
+            const resp = await fetch(CSV_ESTADO_PAGINA);
+            const texto = await resp.text();
+            const lineas = texto.trim().split("\n");
+            const condicion = (lineas[1] || "").toUpperCase().trim();  // "HABILITADA" / "MANTENIMIENTO"
+    
+            if (condicion === "MANTENIMIENTO") {
+                mostrarPaginaMantenimiento();
+            } else {
+                cargarProductosDesdeCSV();
+            }
+        } catch (err) {
+            console.error("Error al verificar estado:", err);
+            cargarProductosDesdeCSV();
+        }
+    }
+    
+    /**
+     * Mostrar mensaje de mantenimiento
+     */
+    function mostrarPaginaMantenimiento() {
+        const container = document.querySelector('.container');
+        if (container) {
+            container.innerHTML = `
+                <h1 class="titulo-principal">Gustito a Salta</h1>
+                <hr class="linea-divisoria">
+                <h2 style="text-align:center; color:red; margin-top:30px;">
+                    Página en mantenimiento
+                </h2>
+            `;
+        }
+    }
+
 // Al cargar el DOM, verificamos el estado y luego cargamos productos
 document.addEventListener('DOMContentLoaded', async () => {
     await verificarEstadoPagina();
@@ -77,42 +114,6 @@ function customConfirm(mensaje, callback) {
     confirmNoBtn.addEventListener("click", onNoClick);
 }
 
-/** ===========================
- * 1) Verificar estado página
-    ===========================*/
-async function verificarEstadoPagina() {
-    try {
-        const resp = await fetch(CSV_ESTADO_PAGINA);
-        const texto = await resp.text();
-        const lineas = texto.trim().split("\n");
-        const condicion = (lineas[1] || "").toUpperCase().trim();  // "HABILITADA" / "MANTENIMIENTO"
-
-        if (condicion === "MANTENIMIENTO") {
-            mostrarPaginaMantenimiento();
-        } else {
-            cargarProductosDesdeCSV();
-        }
-    } catch (err) {
-        console.error("Error al verificar estado:", err);
-        cargarProductosDesdeCSV();
-    }
-}
-
-/**
- * Mostrar mensaje de mantenimiento
- */
-function mostrarPaginaMantenimiento() {
-    const container = document.querySelector('.container');
-    if (container) {
-        container.innerHTML = `
-            <h1 class="titulo-principal">Gustito a Salta</h1>
-            <hr class="linea-divisoria">
-            <h2 style="text-align:center; color:red; margin-top:30px;">
-                Página en mantenimiento
-            </h2>
-        `;
-    }
-}
 
 /** ==================================
  * 2) Cargar CSV productos
@@ -144,7 +145,7 @@ function verificarHorario() {
     }
 
     // 10:00 a 13:30
-    const enFranja1 = mayorOigual(10, 0) && menorOigual(19, 59);
+    const enFranja1 = mayorOigual(10, 0) && menorOigual(13, 30);
     // 20:00 a 23:30
     const enFranja2 = mayorOigual(20, 0) && menorOigual(23, 30);
 
