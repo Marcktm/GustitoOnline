@@ -144,7 +144,7 @@ function verificarHorario() {
     }
 
     // 10:00 a 13:30
-    const enFranja1 = mayorOigual(10, 0) && menorOigual(18, 30);
+    const enFranja1 = mayorOigual(10, 0) && menorOigual(19, 30);
     // 20:00 a 23:30
     const enFranja2 = mayorOigual(20, 0) && menorOigual(23, 30);
 
@@ -505,7 +505,7 @@ ${importes.join('\n')}
 function enviarPedido() {
     const totalEmpanadasSel = cantidadesEmpanadas.reduce((a, b) => a + b, 0);
     const totalBebidasSel   = cantidadesBebidas.reduce((a, b) => a + b, 0);
-    
+
     // Verificamos si hay algo
     if (totalEmpanadasSel === 0 && totalBebidasSel === 0) {
         customAlert("No has seleccionado ningún producto.");
