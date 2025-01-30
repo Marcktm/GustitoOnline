@@ -3,59 +3,103 @@
  ****************************************/
 
 // CSV de estado de la página
-// Debe terminar en ?output=csv para que sea CSV real (no pubhtml)
 const CSV_ESTADO_PAGINA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSdKXzzkXMW_QlRGz_TZ1z5QTQxISGo_BpwKGXFnaAZU_m8w8Npy91SVyrXkpP97cqaj-MnT95xhi6J/pub?output=csv";
 
 // CSV principal de productos
-// También debe terminar en ?output=csv
 const CSV_PRODUCTOS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-L_aO92kTMmF1SlLdoddJnrrGmXpat_Vk3HtuoHL0Ex4Y_XfdIB5jC48HIx1pv6nFxsqIeeTjIF3F/pub?output=csv";
 
 // Arrays donde guardamos info
-let infoDescuentos = [];  // Individual, Media Docena, Docena
-let empanadas = [];       // Categoria Comida
-let bebidas = [];         // Categoria Bebida
+let infoDescuentos = [];  // Para "Individual", "Media Docena", "Docena"
+let empanadas = [];       // Categoría Comida
+let bebidas = [];         // Categoría Bebida
 
 // Estado de cantidades y mensaje dinámico
 let cantidadesEmpanadas = [];
 let cantidadesBebidas = [];
 let mensajePedido = "";
 
-// Al cargar el DOM, primero verificamos el estado de la página
+// Al cargar el DOM, verificamos el estado y luego cargamos productos
 document.addEventListener('DOMContentLoaded', async () => {
     await verificarEstadoPagina();
-    // Después de eso, se setea el link activo del menú
     setActiveLink();
 });
 
+/** =======================
+ * Sección: Modales Custom
+   ========================*/
 /**
- * 1) Verificar estado de la página (CSV_ESTADO_PAGINA)
- *    - Si "MANTENIMIENTO": mostramos mensaje y no cargamos nada más.
- *    - Si "HABILITADA": llamamos a cargarProductosDesdeCSV().
+ * Muestra un modal de alerta con fondo marrón y texto amarillo
  */
+function customAlert(mensaje) {
+    const alertModal = document.getElementById("custom-alert");
+    const alertMsg   = document.getElementById("custom-alert-message");
+    const alertOkBtn = document.getElementById("custom-alert-ok");
+
+    alertMsg.textContent = mensaje;
+    alertModal.classList.remove("hidden");
+
+    function onOkClick() {
+        alertModal.classList.add("hidden");
+        alertOkBtn.removeEventListener("click", onOkClick);
+    }
+    alertOkBtn.addEventListener("click", onOkClick);
+}
+
+/**
+ * Muestra un modal de confirm con Sí / No
+ * callback(true) si Sí, callback(false) si No
+ */
+function customConfirm(mensaje, callback) {
+    const confirmModal  = document.getElementById("custom-confirm");
+    const confirmMsg    = document.getElementById("custom-confirm-message");
+    const confirmYesBtn = document.getElementById("custom-confirm-yes");
+    const confirmNoBtn  = document.getElementById("custom-confirm-no");
+
+    confirmMsg.textContent = mensaje;
+    confirmModal.classList.remove("hidden");
+
+    function onYesClick() {
+        confirmModal.classList.add("hidden");
+        cleanup();
+        callback(true);
+    }
+    function onNoClick() {
+        confirmModal.classList.add("hidden");
+        cleanup();
+        callback(false);
+    }
+    function cleanup() {
+        confirmYesBtn.removeEventListener("click", onYesClick);
+        confirmNoBtn.removeEventListener("click", onNoClick);
+    }
+
+    confirmYesBtn.addEventListener("click", onYesClick);
+    confirmNoBtn.addEventListener("click", onNoClick);
+}
+
+/** ===========================
+ * 1) Verificar estado página
+    ===========================*/
 async function verificarEstadoPagina() {
     try {
         const resp = await fetch(CSV_ESTADO_PAGINA);
         const texto = await resp.text();
         const lineas = texto.trim().split("\n");
-
-        // Asumimos que lineas[1] tiene "HABILITADA" o "MANTENIMIENTO"
-        const condicion = (lineas[1] || "").toUpperCase().trim();
+        const condicion = (lineas[1] || "").toUpperCase().trim();  // "HABILITADA" / "MANTENIMIENTO"
 
         if (condicion === "MANTENIMIENTO") {
             mostrarPaginaMantenimiento();
         } else {
-            // Asumimos "HABILITADA"
             cargarProductosDesdeCSV();
         }
     } catch (err) {
-        console.error("Error al verificar estado de la página:", err);
-        // Si falla, por defecto habilitamos
+        console.error("Error al verificar estado:", err);
         cargarProductosDesdeCSV();
     }
 }
 
 /**
- * Mostrar mensaje de mantenimiento y vaciar container
+ * Mostrar mensaje de mantenimiento
  */
 function mostrarPaginaMantenimiento() {
     const container = document.querySelector('.container');
@@ -70,33 +114,28 @@ function mostrarPaginaMantenimiento() {
     }
 }
 
-/**
- * 2) Cargar CSV de productos (CSV_PRODUCTOS)
- */
+/** ==================================
+ * 2) Cargar CSV productos
+    ==================================*/
 async function cargarProductosDesdeCSV() {
     try {
-        const respuesta = await fetch(CSV_PRODUCTOS);
-        const textoCSV = await respuesta.text();
-        procesarCSV(textoCSV);
-
-        // Después de cargar productos, verificar horario
+        const resp = await fetch(CSV_PRODUCTOS);
+        const texto = await resp.text();
+        procesarCSV(texto);
         verificarHorario();
-    } catch (error) {
-        console.error("Error al cargar el CSV de productos:", error);
+    } catch (err) {
+        console.error("Error al cargar CSV productos:", err);
     }
 }
 
 /**
- * Lógica de horario:
- * - Se permite pedir sólo en 10:00-13:30 y 20:00-23:30
- * - Fuera de ese horario, se grisa todo y se deshabilita "Realizar Pedido".
+ * 3) Verificar horario
  */
 function verificarHorario() {
     const ahora = new Date();
     const hora = ahora.getHours();
     const minutos = ahora.getMinutes();
 
-    // Funciones auxiliares
     function mayorOigual(h, m) {
         return (hora > h) || (hora === h && minutos >= m);
     }
@@ -104,41 +143,39 @@ function verificarHorario() {
         return (hora < h) || (hora === h && minutos <= m);
     }
 
-    // Franja 1: 10:00 <= ahora <= 13:30
-    const enFranja1 = (mayorOigual(10, 0) && menorOigual(13, 30));
-    // Franja 2: 20:00 <= ahora <= 23:30
-    const enFranja2 = (mayorOigual(20, 0) && menorOigual(23, 30));
+    // 10:00 a 13:30
+    const enFranja1 = mayorOigual(10, 0) && menorOigual(18, 30);
+    // 20:00 a 23:30
+    const enFranja2 = mayorOigual(20, 0) && menorOigual(23, 30);
 
     const enHorario = (enFranja1 || enFranja2);
     if (!enHorario) {
-        alert("El local está cerrado. Puedes ver los productos, pero no realizar pedidos.");
+        customAlert("El local está cerrado. Puedes ver los productos, pero no realizar pedidos.");
         bloquearProductosPorHorario();
     }
 }
 
 /**
- * Bloquear productos (poner en gris y deshabilitar botones) por horario
+ * Bloquear productos por horario
  */
 function bloquearProductosPorHorario() {
-    // Se añade la clase .sin-stock a todos
     document.querySelectorAll('.product').forEach(prod => {
         prod.classList.add('sin-stock');
     });
-    // Deshabilitamos todos los botones (+ / -)
+    // Deshabilitar botones
     document.querySelectorAll('.product button').forEach(btn => {
         btn.disabled = true;
     });
-    // Deshabilitamos el botón "Realizar Pedido"
+    // Deshabilitar "Realizar Pedido"
     const btnPedido = document.getElementById('realizar-pedido');
     if (btnPedido) {
         btnPedido.disabled = true;
     }
 }
 
-/**
- * parseLineCSV:
- * Parsea una línea CSV respetando comillas.
- */
+/** ===========================
+ * parseLineCSV
+    ===========================*/
 function parseLineCSV(line) {
     const result = [];
     let current = '';
@@ -155,10 +192,8 @@ function parseLineCSV(line) {
             current += char;
         }
     }
-    // Ultimo fragmento
     result.push(current.trim());
 
-    // Quitar comillas envolventes si existen
     for (let r = 0; r < result.length; r++) {
         const col = result[r];
         if (col.startsWith('"') && col.endsWith('"')) {
@@ -169,106 +204,90 @@ function parseLineCSV(line) {
 }
 
 /**
- * Convierte un link de Drive tipo:
- *  https://drive.google.com/file/d/FILE_ID/view?usp=sharing
- * en un link directo de imagen:
- *  https://drive.google.com/uc?export=view&id=FILE_ID
+ * Convierte link de Drive
  */
 function convertirLinkDrive(linkOriginal) {
-    if (!linkOriginal) return ""; // Si no hay link, retorna vacío
-
+    if (!linkOriginal) return "";
     const regExp = /\/file\/d\/(.*?)\/view/;
     const match = linkOriginal.match(regExp);
     if (match && match[1]) {
         const fileId = match[1];
         return `https://drive.google.com/uc?export=view&id=${fileId}`;
-    } else {
-        // Si no matchea el patrón, devolvemos el link original
-        return linkOriginal;
     }
+    return linkOriginal;
 }
 
-/**
- * Procesar CSV de productos
- */
+/** =============================
+ * 4) Procesar CSV principal
+    =============================*/
 function procesarCSV(csvString) {
     const lineas = csvString.trim().split("\n");
-
-    // Reiniciamos arrays
     infoDescuentos = [];
     empanadas = [];
     bebidas = [];
 
-    // Comenzamos desde 1 para saltar encabezados
     for (let i = 1; i < lineas.length; i++) {
         const fila = parseLineCSV(lineas[i]);
         if (fila.length < 5) {
             console.warn("Línea CSV incompleta:", lineas[i]);
             continue;
         }
+
         const producto = fila[0].trim();
         const categoria = fila[1].trim();
-        let precioStr = fila[2].trim().replace(/"/g, "");
-        const stock = fila[3].trim().toUpperCase();
-        const urlImg = fila[4] ? fila[4].trim() : "";
+        let precioStr   = fila[2].trim().replace(/"/g, "");
+        const stock     = fila[3].trim().toUpperCase();
+        const urlImg    = fila[4] ? fila[4].trim() : "";
 
-        // Convertir "1.500,00" -> "1500"
+        // "1.500,00" -> "1500"
         precioStr = precioStr.replace(/\./g, "").replace(",", ".");
         const precioNum = parseFloat(precioStr);
-        if (isNaN(precioNum)) {
-            continue;
-        }
+        if (isNaN(precioNum)) continue;
 
-        // Convertir link de Drive (si existe)
+        // link drive
         const linkConvertido = convertirLinkDrive(urlImg);
+        const prodLower = producto.toLowerCase();
 
-        // Ver si es Individual, Media Docena, Docena
-        const productoMinus = producto.toLowerCase();
-        if (
-            productoMinus === "individual" ||
-            productoMinus === "media docena" ||
-            productoMinus === "docena"
-        ) {
+        // "Individual", "Media Docena", "Docena"
+        if (prodLower === "individual" || prodLower === "media docena" || prodLower === "docena") {
             infoDescuentos.push({
                 nombre: producto,
                 precio: precioNum,
-                stock: stock,
+                stock,
                 nombreImg: linkConvertido
             });
             continue;
         }
 
-        // Clasificar en empanadas o bebidas
+        // Clasificar
         if (categoria.toLowerCase() === "comida") {
             empanadas.push({
                 nombre: producto,
                 precio: precioNum,
-                stock: stock,
+                stock,
                 nombreImg: linkConvertido
             });
         } else if (categoria.toLowerCase() === "bebida") {
             bebidas.push({
                 nombre: producto,
                 precio: precioNum,
-                stock: stock,
+                stock,
                 nombreImg: linkConvertido
             });
         }
     }
 
-    // Inicializamos contadores
     cantidadesEmpanadas = Array(empanadas.length).fill(0);
     cantidadesBebidas = Array(bebidas.length).fill(0);
 
-    // Generar UI
     generarPrecios();
     generarProductos();
     actualizarDetalle();
 }
 
-/**
- * Generar sección de Precios (Individual, Media Docena, Docena)
- */
+/** ===========================
+ * Generar precios (doc/med/ind)
+    ===========================*/
 function generarPrecios() {
     const preciosDiv = document.getElementById('precios-info');
     if (!preciosDiv) return;
@@ -285,6 +304,7 @@ function generarPrecios() {
         if (item.nombreImg) {
             html += `<img src="${item.nombreImg}" alt="${item.nombre}" style="max-width:100px; display:block; margin:0 auto;">`;
         }
+
         itemDiv.innerHTML = html;
         contenedor.appendChild(itemDiv);
     });
@@ -292,35 +312,35 @@ function generarPrecios() {
     preciosDiv.appendChild(contenedor);
 }
 
-/**
- * Generar productos (Empanadas y Bebidas)
- */
+/** ===============================
+ * Generar productos
+    ===============================*/
 function generarProductos() {
     // Empanadas
     const empanadasDiv = document.getElementById('empanadas');
     if (empanadasDiv) {
         empanadasDiv.innerHTML = "";
-        empanadas.forEach((empanada, index) => {
-            const sinStock = (empanada.stock === "NO");
+        empanadas.forEach((emp, i) => {
+            const sinStock = (emp.stock === "NO");
             const productDiv = document.createElement('div');
             productDiv.classList.add('product');
             if (sinStock) {
                 productDiv.classList.add('sin-stock');
             }
-            const imgTag = empanada.nombreImg
-                ? `<img src="${empanada.nombreImg}" alt="${empanada.nombre}">`
-                : "";
+
+            const imgTag = emp.nombreImg ? `<img src="${emp.nombreImg}" alt="${emp.nombre}">` : "";
+
             productDiv.innerHTML = `
                 <div class="product-details">
                     ${imgTag}
-                    <span class="playwrite-au-tas-empanadas">${empanada.nombre}</span>
+                    <span class="playwrite-au-tas-empanadas">${emp.nombre}</span>
                 </div>
                 <div>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${index}, 6)">+6</button>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${index}, 12)">+12</button>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${index}, -1)">-</button>
-                    <span id="cantidad-empanada-${index}">0</span>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${index}, 1)">+</button>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${i}, 6)">+6</button>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${i}, 12)">+12</button>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${i}, -1)">-</button>
+                    <span id="cantidad-empanada-${i}">0</span>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadEmpanada(${i}, 1)">+</button>
                 </div>
             `;
             empanadasDiv.appendChild(productDiv);
@@ -331,25 +351,25 @@ function generarProductos() {
     const bebidasDiv = document.getElementById('bebidas');
     if (bebidasDiv) {
         bebidasDiv.innerHTML = "";
-        bebidas.forEach((bebida, index) => {
-            const sinStock = (bebida.stock === "NO");
+        bebidas.forEach((beb, i) => {
+            const sinStock = (beb.stock === "NO");
             const productDiv = document.createElement('div');
             productDiv.classList.add('product');
             if (sinStock) {
                 productDiv.classList.add('sin-stock');
             }
-            const imgTag = bebida.nombreImg
-                ? `<img src="${bebida.nombreImg}" alt="${bebida.nombre}">`
-                : "";
+
+            const imgTag = beb.nombreImg ? `<img src="${beb.nombreImg}" alt="${beb.nombre}">` : "";
+
             productDiv.innerHTML = `
                 <div class="product-details">
                     ${imgTag}
-                    <span class="caveat-bebidas">${bebida.nombre} - $${bebida.precio}</span>
+                    <span class="caveat-bebidas">${beb.nombre} - $${beb.precio}</span>
                 </div>
                 <div>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadBebida(${index}, -1)">-</button>
-                    <span id="cantidad-bebida-${index}">0</span>
-                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadBebida(${index}, 1)">+</button>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadBebida(${i}, -1)">-</button>
+                    <span id="cantidad-bebida-${i}">0</span>
+                    <button ${sinStock ? 'disabled' : ''} onclick="cambiarCantidadBebida(${i}, 1)">+</button>
                 </div>
             `;
             bebidasDiv.appendChild(productDiv);
@@ -357,84 +377,105 @@ function generarProductos() {
     }
 }
 
-/**
- * Cambiar cantidad de empanadas
- */
+/** ===============================
+ * Cambiar Cantidades
+    ===============================*/
 function cambiarCantidadEmpanada(index, cambio) {
     cantidadesEmpanadas[index] = Math.max(0, cantidadesEmpanadas[index] + cambio);
     document.getElementById(`cantidad-empanada-${index}`).innerText = cantidadesEmpanadas[index];
     actualizarDetalle();
 }
-
-/**
- * Cambiar cantidad de bebidas
- */
 function cambiarCantidadBebida(index, cambio) {
     cantidadesBebidas[index] = Math.max(0, cantidadesBebidas[index] + cambio);
     document.getElementById(`cantidad-bebida-${index}`).innerText = cantidadesBebidas[index];
     actualizarDetalle();
 }
 
-/**
- * Actualizar detalle y mensaje
- */
+/** ===============================
+ * Helper precio doc/med/ind
+    ===============================*/
+function getPrecioDescuento(nombre) {
+    const desc = infoDescuentos.find(item => item.nombre.toLowerCase() === nombre.toLowerCase());
+    return desc ? desc.precio : 0;
+}
+
+/** ===============================
+ * Actualizar detalle
+    ===============================*/
 function actualizarDetalle() {
     let desgloseHTML = '<div class="detalles">';
     let comanda = [];
     let bebidasSeleccionadas = [];
     let importes = [];
-    let totalEmpanadas = 0;
-    let totalBebidas = 0;
 
-    // Empanadas
+    // Bebidas
+    let totalBebidas = 0;
+    // Contamos empanadas sin sumarlas al total
+    let cantidadTotalEmpanadas = 0;
+
+    // 1) Listar empanadas
     empanadas.forEach((emp, i) => {
         const cant = cantidadesEmpanadas[i];
         if (cant > 0) {
             comanda.push(`-${cant} ${emp.nombre}`);
             desgloseHTML += `<p class="sangria">${cant} ${emp.nombre}</p>`;
-            totalEmpanadas += cant * emp.precio;
+            cantidadTotalEmpanadas += cant;
         }
     });
 
-    // Bebidas
+    // 2) Bebidas (sí sumamos precio)
     bebidas.forEach((beb, i) => {
         const cant = cantidadesBebidas[i];
         if (cant > 0) {
             bebidasSeleccionadas.push(`-${cant} ${beb.nombre}`);
             desgloseHTML += `<p class="sangria">${cant} ${beb.nombre}</p>`;
-            totalBebidas += cant * beb.precio;
+            totalBebidas += (cant * beb.precio);
         }
     });
 
-    // Descuentos por docena
-    const cantidadTotalEmpanadas = cantidadesEmpanadas.reduce((a, b) => a + b, 0);
+    // 3) Precios “Individual”, “Media Docena”, “Docena”
+    const precioIndividual = getPrecioDescuento("Individual") || 1200;
+    const precioMediaDoc   = getPrecioDescuento("Media Docena") || 6500;
+    const precioDocena     = getPrecioDescuento("Docena") || 12000;
+
+    // 4) Calcular docenas, medias, sobrantes
     let docenas = Math.floor(cantidadTotalEmpanadas / 12);
     let empRest = cantidadTotalEmpanadas % 12;
     let mediasDoc = Math.floor(empRest / 6);
     empRest = empRest % 6;
 
+    // 5) Construir importes
     if (docenas > 0) {
-        importes.push(`${docenas} Docena${docenas > 1 ? 's' : ''} ----- $${(docenas * 12000).toLocaleString('es-AR')}`);
+        importes.push(`${docenas} Docena${docenas>1?'s':''} ----- $${(docenas*precioDocena).toLocaleString('es-AR')}`);
     }
     if (mediasDoc > 0) {
-        importes.push(`${mediasDoc} Media Docena${mediasDoc > 1 ? 's' : ''} ----- $${(mediasDoc * 6500).toLocaleString('es-AR')}`);
+        importes.push(`${mediasDoc} Media Docena${mediasDoc>1?'s':''} ----- $${(mediasDoc*precioMediaDoc).toLocaleString('es-AR')}`);
     }
     if (empRest > 0) {
-        importes.push(`${empRest} Individual${empRest > 1 ? 'es' : ''} ----- $${(empRest * 1200).toLocaleString('es-AR')}`);
+        importes.push(`${empRest} Individual${empRest>1?'es':''} ----- $${(empRest*precioIndividual).toLocaleString('es-AR')}`);
     }
     if (totalBebidas > 0) {
         importes.push(`Bebidas ----- $${totalBebidas.toLocaleString('es-AR')}`);
     }
 
+    // Cerrar detalles
     desgloseHTML += '</div><hr class="linea-separadora">';
-    desgloseHTML += '<div class="precios">' + importes.map(l => `<p class="sangria">${l}</p>`).join('') + '</div>';
+    desgloseHTML += '<div class="precios">' 
+        + importes.map(line => `<p class="sangria">${line}</p>`).join('') 
+        + '</div>';
 
     document.getElementById('desglose').innerHTML = desgloseHTML;
 
-    const total = totalEmpanadas + totalBebidas;
+    // 6) Sumar docena + media + individual + bebidas
+    let totalEmpanadas = (docenas * precioDocena) 
+                       + (mediasDoc * precioMediaDoc) 
+                       + (empRest * precioIndividual);
+    let total = totalEmpanadas + totalBebidas;
+
+    // Mostramos total
     document.getElementById('total').innerText = total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
 
-    // Mensaje pedido
+    // Armamos mensajePedido
     mensajePedido = `Hola, me gustaría realizar el siguiente pedido:
 
 *COMANDA:*
@@ -449,7 +490,7 @@ ${importes.join('\n')}
 -----------------------
 *Total: $${total.toLocaleString('es-AR')}*`;
 
-    // Botón reset
+    // Mostrar/ocultar botón reset
     const resetearPedidoBtn = document.getElementById('resetear-pedido');
     if (cantidadTotalEmpanadas > 0 || totalBebidas > 0) {
         resetearPedidoBtn.style.display = 'inline-block';
@@ -459,32 +500,35 @@ ${importes.join('\n')}
 }
 
 /**
- * Enviar pedido por WhatsApp
+ * Enviar pedido
  */
 function enviarPedido() {
+    // Verificamos si hay algo
     if (mensajePedido.trim() === "") {
-        alert("No has seleccionado ningún producto.");
+        customAlert("No has seleccionado ningún producto.");
         return;
     }
-    if (!confirm("¿Estás seguro de que deseas enviar este pedido?")) {
-        return;
-    }
-    const numeroWhatsApp = "5493515598947";
-    const mensajeCodificado = encodeURIComponent(mensajePedido);
-    window.open(`https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`, '_blank');
+    customConfirm("¿Estás seguro de que deseas enviar este pedido?", (respuesta) => {
+        if (!respuesta) {
+            return;
+        }
+        const numeroWhatsApp = "5493515598947";
+        const mensajeCodificado = encodeURIComponent(mensajePedido);
+        window.open(`https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`, '_blank');
+    });
 }
 
-/**
+/** ===============================
  * Toggle menú (móvil)
- */
+    ===============================*/
 function toggleMenu() {
     const menuLinks = document.querySelector('.menu-links');
     menuLinks.classList.toggle('show');
 }
 
-/**
- * Clase activa en el menú
- */
+/** ===============================
+ * Clase activa en menú
+    ===============================*/
 function setActiveLink() {
     const links = document.querySelectorAll('nav a');
     const currentPath = window.location.pathname;
@@ -496,19 +540,20 @@ function setActiveLink() {
     });
 }
 
-/**
+/** ===============================
  * Confirmar reset
- */
+    ===============================*/
 function confirmarResetear() {
-    const confirmacion = confirm("¿Seguro que desea eliminar la selección?");
-    if (confirmacion) {
-        resetearSeleccion();
-    }
+    customConfirm("¿Seguro que desea eliminar la selección?", (respuesta) => {
+        if (respuesta) {
+            resetearSeleccion();
+        }
+    });
 }
 
-/**
- * Resetear cantidades
- */
+/** ===============================
+ * Resetear selección
+    ===============================*/
 function resetearSeleccion() {
     cantidadesEmpanadas.fill(0);
     cantidadesBebidas.fill(0);

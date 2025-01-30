@@ -202,6 +202,7 @@ body, html {
         position: absolute; /* Evita que desborde el contenedor */
         top: 50px; /* Asegura que esté debajo del ícono del menú */
         left: 0;
+        height: 50vh;
     }
 
     .menu-links.show {
@@ -397,3 +398,75 @@ body, html {
     opacity: 0.5;         /* Se ve más claro */
     pointer-events: none; /* No permite clicks */
 }
+
+.footer {
+    margin-top: 30px;          /* Espacio arriba del footer */
+    background-color: rgb(119, 6, 0); /* Marrón oscuro */
+    color: rgb(255, 188, 1);   /* Texto amarillo */
+    text-align: center;
+    padding: 15px;             /* Espaciado */
+}
+
+.footer a {
+    color: rgb(255, 188, 1);   /* Enlaces amarillos */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.modal {
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  .modal-content {
+    background-color: rgb(119, 6, 0); /* Marrón */
+    color: rgb(255, 188, 1);         /* Amarillo */
+    font-family: "Caveat", cursive;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 300px;
+    width: 90%;
+  }
+  
+  .modal-content button {
+    background-color: rgb(255, 188, 1); 
+    color: rgb(119, 6, 0); 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-family: "Caveat", cursive;
+    font-size: 18px;
+  }
+  
+  .modal-content button:hover {
+    opacity: 0.8;
+  }
+  
+  .modal-content button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Para confirm (Sí / No) */
+  .modal-content .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+  

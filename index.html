@@ -20,6 +20,7 @@
     
     <!-- Franja morada de separación -->
     <div class="separator"></div>
+
     <div class="container">
         <h1 class="titulo-principal">Gustito a Salta</h1>
         
@@ -29,7 +30,6 @@
         <div id="precios-info">
             <!-- Aquí se generará la info de Individual, Media Docena, Docena -->
         </div>
-
 
         <!-- Línea divisoria -->
         <hr class="linea-divisoria">
@@ -62,10 +62,36 @@
         <div id="pedido">
             <button id="realizar-pedido" onclick="enviarPedido()">Realizar Pedido</button>
             <button id="resetear-pedido" style="display: none;" onclick="confirmarResetear()">✖</button>
-        </div>
-        
+        </div>        
     </div>
+
+    <!-- MODALES PERSONALIZADOS (para alert y confirm) -->
+    <!-- Custom Alert Modal -->
+    <div id="custom-alert" class="modal hidden">
+        <div class="modal-content">
+            <p id="custom-alert-message"></p>
+            <button id="custom-alert-ok">OK</button>
+        </div>
+    </div>
+    
+    <!-- Custom Confirm Modal -->
+    <div id="custom-confirm" class="modal hidden">
+        <div class="modal-content">
+            <p id="custom-confirm-message"></p>
+            <div class="buttons">
+                <button id="custom-confirm-yes">Sí</button>
+                <button id="custom-confirm-no">No</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Enlaza tu archivo JavaScript -->
     <script src="js/script.js" defer></script>
+
+    <!-- Footer con redes / contacto -->
+    <footer class="footer">
+        <p>WhatsApp: <a href="https://wa.me/5493515598947" target="_blank">+54 9 351 559-8947</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/gustitoasaltaok/?hl=es-la" target="_blank">@GustitoSalta</a></p>
+    </footer>
 </body>
 </html>
