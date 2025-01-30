@@ -144,7 +144,7 @@ function verificarHorario() {
     }
 
     // 10:00 a 13:30
-    const enFranja1 = mayorOigual(10, 0) && menorOigual(19, 30);
+    const enFranja1 = mayorOigual(10, 0) && menorOigual(19, 59);
     // 20:00 a 23:30
     const enFranja2 = mayorOigual(20, 0) && menorOigual(23, 30);
 
