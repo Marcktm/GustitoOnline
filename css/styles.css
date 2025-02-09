@@ -521,7 +521,7 @@ button:active {
 /* Cada imagen en el carrusel */
 .photo-container img {
     width: 250px;   /* Ancho fijo en escritorio */
-    height: auto;   /* Mantiene proporción */
+    height:min-content;   /* Mantiene proporción */
     flex-shrink: 0; /* Evita que se achique al no caber */
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -570,10 +570,3 @@ button:active {
     }
 }
 
-@media (min-width: 1024px) {
-    /* Ocultamos las flechas en pantallas grandes */
-    .arrow {
-      display: none !important;
-    }
-  }
-  
