@@ -253,6 +253,11 @@ button:active {
     transform: scale(0.9);
 }
 
+button.active {
+    background-color: rgb(255, 188, 1); /* Color cuando se presiona */
+    color: rgb(119, 6, 0);
+}
+
 /* Estilos de tipografía en productos */
 .playwrite-au-tas-empanadas {
     font-family: "Playwrite AU TAS", serif;
