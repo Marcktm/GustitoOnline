@@ -496,91 +496,73 @@ button:active {
     }
 }
 
-/* --- Carrusel horizontal con flechas --- */
-.horizontal-stack {
-    position: relative;      /* Para que las flechas se posicionen encima */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
-    width: 100%;              /* Ocupa el 90% del ancho de la pantalla */
-    max-width: 1000px;       /* Ajusta según tu gusto */
-    overflow: hidden;        /* Oculta cualquier desborde horizontal */
+.polaroid-container {
+    display: flex;               /* Para centrar horizontalmente la imagen */
+    justify-content: center;     
+    margin: 30px auto;           /* Ajusta separación arriba/abajo */
+    width: 100%;                 /* Ocupa todo el ancho disponible */
 }
 
-/* Contenedor que muestra las imágenes en fila */
-.photo-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;               /* Espacio entre imágenes */
-    overflow-x: auto;        /* Scroll horizontal si no caben todas */
-    scroll-behavior: smooth; /* Desplazamiento suave */
-    -webkit-overflow-scrolling: touch; 
-}
+.polaroid-container img {
+    /* Polaroid: Marco blanco grueso y sombra */
+    border: 12px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;          /* Sutil redondeado en esquinas, opcional */
+    background-color: #fff;      /* Para asegurar el mismo color que el borde */
 
-/* Cada imagen con efecto Polaroid */
-.photo-container img {
-    width: 250px;          /* Ancho fijo en escritorio */
-    height: auto;          /* Mantiene proporción */
-    flex-shrink: 0;        /* Evita que se achique al no caber */
+    /* Ajusta el ancho que desees para la foto en escritorio */
+    width: 300px;    
+    height: auto;                /* Mantener proporción */
+    flex-shrink: 0;
 
-    /* Polaroid: Marco blanco y ligera sombra */
-    border: 12px solid #fff;       /* Marco grueso blanco */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
-    border-radius: 3px;            /* Sutil redondeado en esquinas, opcional */
-
-    /* Pequeño “fondo” de color, si deseas */
-    background-color: #fff;        /* Deja igual que border, para un marco coherente */
-    
-    /* Transiciones suaves (opcional) */
+    /* Efecto hover opcional */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Efecto de “levantar” la foto al pasar el mouse */
-.photo-container img:hover {
+.polaroid-container img:hover {
     transform: scale(1.03);
     box-shadow: 0 6px 12px rgba(0,0,0,0.4);
 }
 
-/* Flechas izquierda/derecha */
-.arrow {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 0 10px;
-    margin: 0 10px;
-    border-radius: 5px;
-    z-index: 1;
-    transition: background-color 0.3s;
-}
-
-.arrow:hover {
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.arrow.left {
-    position: absolute;
-    left: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.arrow.right {
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Ajustes responsivos para móvil:
-   Cada imagen ocupará 100% del contenedor,
-   mostrando solo una a la vez (scroll horizontal). */
+/* Si quieres que en móviles sea más grande (ocupe casi toda la pantalla),
+   puedes usar una media query */
 @media (max-width: 600px) {
-    .photo-container img {
-        width: 100%;  /* Ocupa todo el ancho */
+    .polaroid-container img {
+        width: 90%;  /* O 100% para que ocupe todo */
+        max-width: 400px; /* Máximo ancho en px para que no se vea enorme */
     }
-    .arrow {
-        font-size: 1.8rem;
+}
+
+/* Disposición horizontal en escritorio */
+.quienes-wrapper {
+    display: flex;
+    align-items: flex-start; 
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* Texto con tipografía cursiva, color y justificado */
+.history-text {
+    font-family: "Caveat", cursive; 
+    color: rgb(119, 6, 0);
+    line-height: 1.5;
+    max-width: 600px;  
+    text-align: justify;   /* Alineación justificada */
+    font-size: 18px;       /* Tamaño base para escritorio */
+}
+
+/* En pantallas móviles, la imagen pasa arriba y el texto abajo */
+@media (max-width: 767px) {
+    .quienes-wrapper {
+        flex-direction: column; 
+        align-items: center;    
+    }
+
+    .history-text {
+        margin-top: 20px; 
+        max-width: 90%;
+        /* Puedes mantener justify o centrar; elige según tu preferencia */
+        text-align: justify; 
+        font-size: 20px; /* O 16px, 18px, etc. según la preferencia en móvil */
     }
 }
