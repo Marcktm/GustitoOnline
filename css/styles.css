@@ -514,7 +514,7 @@ button:active {
 
 .polaroid-container img {
     /* Polaroid: Marco blanco grueso y sombra */
-    border: 12px solid #fff;
+    border: 12px solid #800900;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 3px;          /* Sutil redondeado en esquinas, opcional */
     background-color: #fff;      /* Para asegurar el mismo color que el borde */
@@ -589,8 +589,8 @@ button:active {
 
 /* Indica que en ESCRITORIO, primero va imagen (order: 1), luego mapa (order: 2), luego texto (order: 3). */
 .seccion-imagen { order: 1; }
-.seccion-mapa   { order: 2; }
-.seccion-texto  { order: 3; }
+.seccion-mapa   { order: 3; }
+.seccion-texto  { order: 2; }
 
 /* Ajustes de anchura para que imagen y mapa estén “abajo” en la misma columna */
 .seccion-imagen,
@@ -623,4 +623,19 @@ button:active {
     .seccion-imagen   { order: 1; width: 100%; }
     .seccion-texto    { order: 2; width: 90%; margin-top: 20px; }
     .seccion-mapa     { order: 3; width: 100%; margin-top: 20px; }
+}
+
+.map-container{
+    display: flex;               /* Para centrar horizontalmente la imagen */
+    justify-content: center;     
+    margin: 30px auto;           /* Ajusta separación arriba/abajo */
+    width: 40%;                 /* Ocupa todo el ancho disponible */
+}
+
+.map-container iframe{
+    /* Polaroid: Marco blanco grueso y sombra */
+    border: 12px solid #800900;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;          /* Sutil redondeado en esquinas, opcional */
+
 }
