@@ -546,9 +546,9 @@ button:active {
     font-family: "Caveat", cursive; 
     color: rgb(119, 6, 0);
     line-height: 1.5;
-    max-width: 600px;  
+    max-width: 1000px;  
     text-align: justify;   /* Alineación justificada */
-    font-size: 18px;       /* Tamaño base para escritorio */
+    font-size: 25px;       /* Tamaño base para escritorio */
 }
 
 /* En pantallas móviles, la imagen pasa arriba y el texto abajo */
