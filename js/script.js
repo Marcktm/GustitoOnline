@@ -377,39 +377,6 @@ function generarProductos() {
         });
     }
 
-    // Agregar eventos táctiles y de clic a los botones recién creados
-    agregarEventosBotonesCantidad();
-}
-
-//botones en al parte vista movil
-function agregarEventosBotonesCantidad() {
-    const botonesCantidad = document.querySelectorAll(".cantidad-btn");
-
-    botonesCantidad.forEach(boton => {
-        boton.addEventListener("click", () => {
-            const index = boton.getAttribute("data-index");
-            const change = parseInt(boton.getAttribute("data-change"), 10);
-            if (boton.closest("#empanadas")) {
-                cambiarCantidadEmpanada(index, change);
-            } else if (boton.closest("#bebidas")) {
-                cambiarCantidadBebida(index, change);
-            }
-        });
-
-        boton.addEventListener("touchstart", () => {
-            boton.classList.add("active"); // Agregar efecto táctil
-        });
-
-        boton.addEventListener("touchend", () => {
-            setTimeout(() => {
-                boton.classList.remove("active"); // Remover efecto táctil
-            }, 200);
-        });
-
-        boton.addEventListener("mouseleave", () => {
-            boton.classList.remove("active"); // Asegurar que se remueve al salir del botón
-        });
-    });
 }
 
 
