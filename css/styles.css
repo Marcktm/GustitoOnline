@@ -128,7 +128,7 @@ nav a.active {
     }
 
     nav {
-        position:static;
+        position:relative;
         top: 0;
         left: 0;
         width: 100%;
@@ -188,7 +188,7 @@ nav a.active {
 
     /* Footer fijo abajo en móviles */
     .footer {
-        position:static;
+        position:relative;
         bottom: 0;
         left: 0;
         right: 0;
