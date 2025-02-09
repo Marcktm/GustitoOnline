@@ -315,25 +315,51 @@ button:active {
 }
 
 #resetear-pedido {
-    background-color: rgb(198, 50, 50); /* Rojo */
+    background-color: rgb(198, 50, 50);
     color: white;
     border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    font-size: 25px;
-    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0;
     margin-left: 10px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
+
+    /* Flex para centrar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+#resetear-pedido span { 
+    /* Solo si usas <span>✖</span> en vez de ✖ suelto */
+    transform: translateX(1px); 
+    display: inline-block;
+}
+
+/* Si el ✖ está directamente dentro del botón (sin <span>), 
+   aplica transform: translateX(1px); en un ::before o en el propio botón. 
+   Ejemplo rápido: */
+#resetear-pedido {
+    position: relative;
+}
+#resetear-pedido::after {
+    content: "✖";
+    transform: translateX(1px);
+}
+
+/* Hover / Active */
 #resetear-pedido:hover {
     background-color: rgb(255, 80, 80);
 }
-
 #resetear-pedido:active {
     transform: scale(0.9);
 }
+
+
 
 /* Estado sin stock */
 .sin-stock {
@@ -467,5 +493,79 @@ button:active {
 
     .linea-divisoria {
         border-top: 2px solid rgb(255, 188, 1);
+    }
+}
+
+/* --- Carrusel horizontal con flechas --- */
+.horizontal-stack {
+    position: relative;      /* Para que las flechas se posicionen encima */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 90%;              /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 1000px;       /* Ajusta según tu gusto */
+    overflow: hidden;        /* Oculta cualquier desborde horizontal */
+}
+
+/* Contenedor que muestra las imágenes en fila */
+.photo-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;               /* Espacio entre imágenes */
+    overflow-x: auto;        /* Scroll horizontal si no caben todas */
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    -webkit-overflow-scrolling: touch; 
+}
+
+/* Cada imagen en el carrusel */
+.photo-container img {
+    width: 250px;   /* Ancho fijo en escritorio */
+    height: auto;   /* Mantiene proporción */
+    flex-shrink: 0; /* Evita que se achique al no caber */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Flechas izquierda/derecha */
+.arrow {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    z-index: 1;
+    transition: background-color 0.3s;
+}
+
+.arrow:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.arrow.left {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow.right {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Ajustes responsivos para móvil:
+   Cada imagen ocupará 100% del contenedor,
+   mostrando solo una a la vez (scroll horizontal). */
+@media (max-width: 600px) {
+    .photo-container img {
+        width: 100%;  /* Ocupa todo el ancho */
+    }
+    .arrow {
+        font-size: 1.8rem;
     }
 }

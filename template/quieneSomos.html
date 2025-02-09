@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Quiénes Somos - Gustito a Salta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Enlaza tu archivo CSS -->
+    <!-- Enlaza tu archivo CSS principal -->
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -22,27 +22,72 @@
     
     <div class="container">
         <h1 class="titulo-principal">Quiénes Somos</h1>
-        <p>
-            Somos un local de empanadas dedicado a ofrecer las mejores variedades 
-            con ingredientes frescos y un sabor inigualable. En Gustito a Salta
-            te acercamos lo mejor de la gastronomía salteña.
-        </p>
-        <!-- Agrega más contenido según desees -->
+        
+        <!-- Bloque del carrusel horizontal -->
+        <div class="horizontal-stack">
+            <!-- Flecha izquierda -->
+            <button class="arrow left" onclick="carruselScrollLeft()">&#10094;</button>
+
+            <!-- Contenedor que envuelve todas las imágenes en fila -->
+            <div class="photo-container">
+                <!-- Ajusta las rutas de imagen según tu carpeta /img/ -->
+                <img src="../img/tomy.png" alt="Foto 1: Tomy" />
+                <img src="../img/empanda-tradicional.png" alt="Foto 2: Empanada tradicional" />
+                <img src="../img/todos.png" alt="Foto 4: Empanadas variadas" />
+                <img src="../img/local.png" alt="Foto 5: Fachada del local" />
+            </div>
+
+            <!-- Flecha derecha -->
+            <button class="arrow right" onclick="carruselScrollRight()">&#10095;</button>
+        </div>
+
+        <!-- Texto de la historia de Gustito a Salta -->
+        <div style="margin-top: 20px;">
+            <p>
+                En Gustito a Salta, la pasión por la gastronomía nos une como familia y nos impulsa a llevar 
+                los auténticos sabores de nuestra tierra a cada rincón de Córdoba. Este emprendimiento nació 
+                en plena pandemia como un sueño mío, Tomás Adad, un joven salteño que, junto a mis 10 hermanos, 
+                compartimos un profundo amor por la cocina tradicional.
+            </p>
+            <p>
+                Desde pequeños, crecimos entre aromas y recetas que pasaron de generación en generación, 
+                combinando lo mejor de la gastronomía regional salteña con los secretos de la cocina árabe, 
+                reflejo de nuestras raíces y tradiciones. Ese legado fue el motor que nos llevó a transformar 
+                nuestra pasión en un proyecto real, que comenzó como un pequeño emprendimiento y hoy se 
+                materializa en nuestro local físico, ubicado en el corazón de Nueva Córdoba, barrio Güemes.
+            </p>
+            <p>
+                En Gustito a Salta, nuestra misión es ofrecer una experiencia gastronómica auténtica, con el 
+                sabor casero y la calidez de la comida hecha con amor. Nuestras empanadas, con su característico 
+                repulgue y el inconfundible sabor salteño, son solo el comienzo de un menú que busca acercar 
+                la esencia de nuestra provincia a cada cliente.
+            </p>
+            <p>
+                Hoy seguimos creciendo, con el firme compromiso de brindar no solo comida, sino un pedacito de 
+                Salta en cada bocado. Agradecemos a cada persona que nos elige y nos permite compartir nuestra 
+                historia a través de nuestros sabores.
+            </p>
+            <p>
+                ¡Los esperamos para disfrutar de lo mejor de Salta en Córdoba!
+            </p>
+        </div>
     </div>
 
-    <!-- Opcionalmente, si quieres que aquí también funcionen
-         los modales (para alerts/confirms), puedes volver a
-         incluir los divs de modales. No es esencial si no
-         llamas a alert/confirm aquí. -->
-         
-    <!-- Script principal (mismo que en index) para menu hamburguesa 
-         y otras funciones reutilizables. -->
+    <!-- Script principal (mismo que en index) y que incluye nuestras funciones de flecha -->
     <script src="../js/script.js" defer></script>
 
     <!-- Footer con redes / contacto -->
     <footer class="footer">
-        <p>WhatsApp: <a href="https://wa.me/5493515598947" target="_blank">+54 9 351 559-8947</a></p>
-        <p>Instagram: <a href="https://www.instagram.com/gustitoasaltaok/?hl=es-la" target="_blank">@GustitoSalta</a></p>
+        <p>WhatsApp: 
+            <a href="https://wa.me/5493515598947" target="_blank">
+                +54 9 351 559-8947
+            </a>
+        </p>
+        <p>Instagram: 
+            <a href="https://www.instagram.com/gustitoasaltaok/?hl=es-la" target="_blank">
+                @GustitoSalta
+            </a>
+        </p>
     </footer>
 </body>
 </html>
