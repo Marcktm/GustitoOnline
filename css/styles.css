@@ -518,13 +518,28 @@ button:active {
     -webkit-overflow-scrolling: touch; 
 }
 
-/* Cada imagen en el carrusel */
+/* Cada imagen con efecto Polaroid */
 .photo-container img {
-    width: 250px;   /* Ancho fijo en escritorio */
-    height:min-content;   /* Mantiene proporción */
-    flex-shrink: 0; /* Evita que se achique al no caber */
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 250px;          /* Ancho fijo en escritorio */
+    height: auto;          /* Mantiene proporción */
+    flex-shrink: 0;        /* Evita que se achique al no caber */
+
+    /* Polaroid: Marco blanco y ligera sombra */
+    border: 12px solid #fff;       /* Marco grueso blanco */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+    border-radius: 3px;            /* Sutil redondeado en esquinas, opcional */
+
+    /* Pequeño “fondo” de color, si deseas */
+    background-color: #fff;        /* Deja igual que border, para un marco coherente */
+    
+    /* Transiciones suaves (opcional) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto de “levantar” la foto al pasar el mouse */
+.photo-container img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
 }
 
 /* Flechas izquierda/derecha */
@@ -569,4 +584,3 @@ button:active {
         font-size: 1.8rem;
     }
 }
-
