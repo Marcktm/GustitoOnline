@@ -569,3 +569,11 @@ button:active {
         font-size: 1.8rem;
     }
 }
+
+@media (min-width: 1024px) {
+    /* Ocultamos las flechas en pantallas grandes */
+    .arrow {
+      display: none !important;
+    }
+  }
+  
