@@ -542,13 +542,6 @@ button:active {
     }
 }
 
-/* Disposición horizontal en escritorio */
-.quienes-wrapper {
-    display: flex;
-    align-items: flex-start; 
-    gap: 40px;
-    margin-top: 30px;
-}
 
 /* Texto con tipografía cursiva, color y justificado */
 .history-text {
@@ -558,6 +551,11 @@ button:active {
     max-width: 1000px;  
     text-align: justify;   /* Alineación justificada */
     font-size: 25px;       /* Tamaño base para escritorio */
+}
+
+.history-text p {
+    text-indent: 2em;       /* Sangría al inicio de cada párrafo */
+    margin-bottom: 1em;     /* Espacio entre párrafos */
 }
 
 /* En pantallas móviles, la imagen pasa arriba y el texto abajo */
@@ -574,4 +572,55 @@ button:active {
         text-align:justify; 
         font-size: 18px; /* O 16px, 18px, etc. según la preferencia en móvil */
     }
+
+    .history-text p {
+        text-indent: 2em;       /* Sangría al inicio de cada párrafo */
+        margin-bottom: 1em;     /* Espacio entre párrafos */
+    }
+    
+}
+
+/* Padre con flex en escritorio */
+.quienes-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* Indica que en ESCRITORIO, primero va imagen (order: 1), luego mapa (order: 2), luego texto (order: 3). */
+.seccion-imagen { order: 1; }
+.seccion-mapa   { order: 2; }
+.seccion-texto  { order: 3; }
+
+/* Ajustes de anchura para que imagen y mapa estén “abajo” en la misma columna */
+.seccion-imagen,
+.seccion-mapa {
+    display:flexbox;
+    flex-direction:column-reverse;
+    align-items: center; /* Centra horizontalmente si deseas */
+}
+
+/* Por si quieres que la imagen y el mapa ocupen en total ~40% del ancho, y el texto ~60% */
+.seccion-imagen,
+.seccion-mapa {
+    width: 40%; /* Ajusta si quieres la misma anchura para ambos 
+                   (puedes poner 100% y el .seccion-texto con width:100% => wrap) */
+}
+.seccion-texto {
+    width: 60%;
+}
+
+/* En MÓVIL, se reordenan:
+   1) Imagen,
+   2) Texto,
+   3) Mapa
+   y cada uno en una fila */
+@media (max-width: 767px) {
+    .quienes-wrapper {
+        flex-direction: column; 
+        align-items: center; /* todo centrado */
+    }
+    .seccion-imagen   { order: 1; width: 100%; }
+    .seccion-texto    { order: 2; width: 90%; margin-top: 20px; }
+    .seccion-mapa     { order: 3; width: 100%; margin-top: 20px; }
 }
