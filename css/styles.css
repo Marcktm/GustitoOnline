@@ -151,7 +151,7 @@ nav a.active {
         position: absolute;
         top: 50px;  /* Justo debajo del icono del menú */
         left: 0;
-        height: 50vh;
+        height: 25vh;
     }
 
     .menu-links.show {
