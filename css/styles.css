@@ -562,7 +562,7 @@ button:active {
         margin-top: 20px; 
         max-width: 90%;
         /* Puedes mantener justify o centrar; elige según tu preferencia */
-        text-align: justify; 
-        font-size: 20px; /* O 16px, 18px, etc. según la preferencia en móvil */
+        text-align:justify; 
+        font-size: 18px; /* O 16px, 18px, etc. según la preferencia en móvil */
     }
 }
