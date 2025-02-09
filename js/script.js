@@ -573,21 +573,3 @@ function resetearSeleccion() {
     });
     actualizarDetalle();
 }
-
-function carruselScrollLeft() {
-    const container = document.querySelector('.photo-container');
-    const scrollAmount = container.clientWidth;
-    container.scrollBy({
-        left: -scrollAmount,
-        behavior: 'smooth'
-    });
-}
-
-function carruselScrollRight() {
-    const container = document.querySelector('.photo-container');
-    const scrollAmount = container.clientWidth; 
-    container.scrollTo({
-        left: container.scrollLeft + scrollAmount,
-        behavior: 'smooth'
-    });
-}

@@ -128,7 +128,7 @@ nav a.active {
     }
 
     nav {
-        position: relative;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -184,6 +184,15 @@ nav a.active {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    /* Footer fijo abajo en móviles */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999; /* también por encima del contenido */
     }
 }
 
