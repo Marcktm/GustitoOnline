@@ -503,7 +503,7 @@ button:active {
     align-items: center;
     justify-content: center;
     margin: 20px auto;
-    width: 90%;              /* Ocupa el 90% del ancho de la pantalla */
+    width: 100%;              /* Ocupa el 90% del ancho de la pantalla */
     max-width: 1000px;       /* Ajusta según tu gusto */
     overflow: hidden;        /* Oculta cualquier desborde horizontal */
 }
