@@ -316,7 +316,7 @@ button:active {
 }
 
 #realizar-pedido:hover {
-    background-color: rgb(255, 188, 1);
+    background-color: rgba(119, 6, 0, 0.329);
     color: rgb(119, 6, 0);
 }
 

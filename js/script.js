@@ -376,9 +376,7 @@ function generarProductos() {
             bebidasDiv.appendChild(productDiv);
         });
     }
-
 }
-
 
 /** ===============================
  * Cambiar Cantidades
