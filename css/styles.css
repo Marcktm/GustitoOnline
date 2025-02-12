@@ -1,0 +1,642 @@
+/* Importar tipografías */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playwrite+AU+TAS:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Noto+Sans+Gothic&family=Playwrite+AU+TAS:wght@100..400&display=swap');
+
+/* Reset y box-sizing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajustes para ocupar todo el alto del viewport y poder "pegar" el footer */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;  /* Evitar scroll horizontal */
+    max-width: 100vw;    /* Prevenir que elementos desborden horizontalmente */
+}
+
+/* Hacemos que el body sea flex y ocupe todo el alto */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;           /* Para que el footer se pegue abajo si hay poco contenido */
+    background-color: rgb(255, 188, 1); /* Fondo amarillo */
+    font-size: 16px;
+}
+
+/* Contenedor principal: crecerá ocupando espacio y empujando el footer hacia abajo */
+.container {
+    width: 100%;
+    padding: 0 10px;
+    flex: 1; /* ¡Clave para que el footer quede al final en contenido corto! */
+}
+
+/* Ajustes para pantallas grandes (sobre .container) */
+@media (min-width: 600px) {
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+/* Titulares */
+h1, h2 {
+    font-family: "Caveat", cursive;
+    margin: 10px 0;
+    color: rgb(119, 6, 0);
+}
+
+.titulo-principal {
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 70px;
+}
+
+.subtitulos {
+    text-align: left;
+    font-family: "Caveat", cursive;
+    font-weight: 50;
+    font-style: normal;
+    font-size: 50px;
+}
+
+/* Línea divisoria */
+.linea-divisoria {
+    width: 80%; 
+    margin: 20px auto; 
+    border: none; 
+    border-top: 2px solid rgb(119, 6, 0); 
+    opacity: 0.7;
+}
+
+/* Menú de navegación */
+nav {
+    background-color: rgb(119, 6, 0); /* Marrón oscuro */
+    padding: 10px;
+    position: relative;
+}
+
+/* Ícono de menú (hamburguesa) para móviles */
+.menu-icon {
+    display: none;
+    font-size: 24px;
+    color: rgb(255, 188, 1);
+    cursor: pointer;
+}
+
+/* Contenedor de enlaces */
+.menu-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Caveat", cursive; /* Aplica fuente */
+    font-weight: 700;
+}
+
+nav a {
+    font-family: "Playwrite AU TAS", serif; /* Fuente para los links */
+    font-weight: 400;
+    color: rgb(255, 188, 1);
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+nav a:hover,
+nav a.active {
+    background-color: rgb(255, 188, 1);
+    color: rgb(119, 6, 0);
+    font-weight: bold;
+}
+
+/* Ajustes de responsividad para el menú en pantallas pequeñas */
+@media (max-width: 767px) {
+
+    .titulo-principal {
+        text-align: center;
+        font-size: 80px; /* Ajusta según tu preferencia en móviles */
+        margin: 20px 0;
+        line-height: 1.5;
+    }
+
+    nav {
+        position:static;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .menu-icon {
+        display: block; /* Mostrar en móviles */
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .menu-links {
+        display: none; /* Ocultar los enlaces */
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(119, 6, 0);
+        width: 100%;
+        position: absolute;
+        top: 50px;  /* Justo debajo del icono del menú */
+        left: 0;
+        height: 25vh;
+    }
+
+    .menu-links.show {
+        display: flex; /* Mostrar cuando se activa */
+    }
+
+    nav a {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 10px;
+        color: rgb(255, 188, 1);
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        background-color: rgb(255, 188, 1);
+        color: rgb(119, 6, 0);
+    }
+
+    #desglose {
+        width: 80%;
+        max-width: 600px;
+        margin: 10px auto;
+        padding: 15px;
+        background-color: rgb(119, 6, 0);
+        color: rgb(255, 188, 1);
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Footer fijo abajo en móviles */
+    .footer {
+        position:static;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999; /* también por encima del contenido */
+    }
+}
+
+/* Separador */
+.separator {
+    height: 10px;
+}
+
+/* Estilos de productos */
+.product {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+@media (min-width: 600px) {
+    .product {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+}
+
+.product-details img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+/* Botones */
+button {
+    background-color: rgb(119, 6, 0); 
+    color: rgb(255, 188, 1); 
+    border: none;
+    border-radius: 35%;
+    padding: 10px;
+    font-size: 16px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 2px;
+}
+
+button:hover {
+    background-color: rgb(198, 50, 50);
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+
+/* Estilos de tipografía en productos */
+.playwrite-au-tas-empanadas {
+    font-family: "Playwrite AU TAS", serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(119, 6, 0);
+}
+
+.caveat-bebidas {
+    font-family: "Playwrite AU TAS", serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(119, 6, 0);
+}
+
+/* Desglose */
+#desglose {
+    background-color: rgb(119, 6, 0);
+    color: rgb(255, 188, 1);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#desglose .sangria {
+    margin-left: 20px;
+}
+
+#desglose .linea-separadora {
+    border: none;
+    border-top: 1px solid rgb(255, 188, 1);
+    margin: 10px 0;
+}
+
+#desglose .precios .sangria {
+    font-weight: bold;
+}
+
+#desglose p {
+    margin: 5px 0;
+}
+
+/* Botones de acción (Pedido y Reset) */
+#pedido {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#realizar-pedido {
+    background-color: rgb(119, 6, 0);
+    color: rgb(255, 188, 1);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+#realizar-pedido:hover {
+    background-color: rgba(119, 6, 0, 0.329);
+    color: rgb(119, 6, 0);
+}
+
+#realizar-pedido:active {
+    transform: scale(0.95);
+}
+
+#resetear-pedido {
+    background-color: rgb(198, 50, 50);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    /* Flex para centrar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#resetear-pedido span { 
+    /* Solo si usas <span>✖</span> en vez de ✖ suelto */
+    transform: translateX(1px); 
+    display: inline-block;
+}
+
+/* Si el ✖ está directamente dentro del botón (sin <span>), 
+   aplica transform: translateX(1px); en un ::before o en el propio botón. 
+   Ejemplo rápido: */
+#resetear-pedido {
+    position: relative;
+}
+#resetear-pedido::after {
+    content: "✖";
+    transform: translateX(1px);
+}
+
+/* Hover / Active */
+#resetear-pedido:hover {
+    background-color: rgb(255, 80, 80);
+}
+#resetear-pedido:active {
+    transform: scale(0.9);
+}
+
+
+
+/* Estado sin stock */
+.sin-stock {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Contenedor de los precios (Individual, Media Docena, Docena) */
+.precios-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.precio-item {
+    margin: 10px 20px;
+    text-align: center;
+}
+
+/* Footer "sticky": queda siempre al final de la página */
+.footer {
+    flex-shrink: 0;              /* Evita que el footer se achique en pantallas pequeñas */
+    margin-top: 30px;            /* Espacio opcional por arriba del footer */
+    background-color: rgb(119, 6, 0); /* Marrón oscuro */
+    color: rgb(255, 188, 1);     /* Texto amarillo */
+    text-align: center;
+    padding: 15px;
+}
+
+.footer a {
+    color: rgb(255, 188, 1);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Modales (Alert & Confirm) */
+.modal {
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-content {
+    background-color: rgb(119, 6, 0);
+    color: rgb(255, 188, 1);
+    font-family: "Caveat", cursive;
+    font-size: 40px;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.modal-content .buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 188, 1);
+    color: rgb(119, 6, 0);
+    border: none;
+    border-radius: 5px;
+    font-family: "Caveat", cursive;
+    font-size: 25px;
+    padding: 20px 40px;
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.modal-content button:hover {
+    opacity: 0.8;
+}
+
+.modal-content button:active {
+    transform: scale(0.95);
+}
+
+/* Forzar el tema claro siempre (si el usuario está en modo oscuro) */
+@media (prefers-color-scheme: dark) {
+    body, html {
+        background-color: rgb(255, 188, 1);
+        color: rgb(119, 6, 0);
+    }
+
+    nav {
+        background-color: rgb(119, 6, 0);
+    }
+
+    #desglose {
+        background-color: rgb(119, 6, 0);
+        color: rgb(255, 188, 1);
+    }
+
+    #realizar-pedido {
+        background-color: rgb(119, 6, 0);
+        color: rgb(255, 188, 1);
+    }
+
+    .menu-links a {
+        color: rgb(255, 188, 1);
+    }
+
+    .menu-links a:hover {
+        background-color: rgb(255, 188, 1);
+        color: rgb(119, 6, 0);
+    }
+
+    .linea-divisoria {
+        border-top: 2px solid rgb(255, 188, 1);
+    }
+}
+
+.polaroid-container {
+    display: flex;               /* Para centrar horizontalmente la imagen */
+    justify-content: center;     
+    margin: 30px auto;           /* Ajusta separación arriba/abajo */
+    width: 100%;                 /* Ocupa todo el ancho disponible */
+}
+
+.polaroid-container img {
+    /* Polaroid: Marco blanco grueso y sombra */
+    border: 12px solid #800900;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;          /* Sutil redondeado en esquinas, opcional */
+    background-color: #fff;      /* Para asegurar el mismo color que el borde */
+
+    /* Ajusta el ancho que desees para la foto en escritorio */
+    width: 300px;    
+    height: auto;                /* Mantener proporción */
+    flex-shrink: 0;
+
+    /* Efecto hover opcional */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.polaroid-container img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* Si quieres que en móviles sea más grande (ocupe casi toda la pantalla),
+   puedes usar una media query */
+@media (max-width: 600px) {
+    .polaroid-container img {
+        width: 90%;  /* O 100% para que ocupe todo */
+        max-width: 400px; /* Máximo ancho en px para que no se vea enorme */
+    }
+}
+
+
+/* Texto con tipografía cursiva, color y justificado */
+.history-text {
+    font-family: "Caveat", cursive; 
+    color: rgb(119, 6, 0);
+    line-height: 1.5;
+    max-width: 1000px;  
+    text-align: justify;   /* Alineación justificada */
+    font-size: 25px;       /* Tamaño base para escritorio */
+}
+
+.history-text p {
+    text-indent: 2em;       /* Sangría al inicio de cada párrafo */
+    margin-bottom: 1em;     /* Espacio entre párrafos */
+}
+
+/* En pantallas móviles, la imagen pasa arriba y el texto abajo */
+@media (max-width: 767px) {
+    .quienes-wrapper {
+        flex-direction: column; 
+        align-items: center;    
+    }
+
+    .history-text {
+        margin-top: 20px; 
+        max-width: 90%;
+        /* Puedes mantener justify o centrar; elige según tu preferencia */
+        text-align:justify; 
+        font-size: 18px; /* O 16px, 18px, etc. según la preferencia en móvil */
+    }
+
+    .history-text p {
+        text-indent: 2em;       /* Sangría al inicio de cada párrafo */
+        margin-bottom: 1em;     /* Espacio entre párrafos */
+    }
+    
+}
+
+/* Padre con flex en escritorio */
+.quienes-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* Indica que en ESCRITORIO, primero va imagen (order: 1), luego mapa (order: 2), luego texto (order: 3). */
+.seccion-imagen { order: 1; }
+.seccion-mapa   { order: 3; }
+.seccion-texto  { order: 2; }
+
+/* Ajustes de anchura para que imagen y mapa estén “abajo” en la misma columna */
+.seccion-imagen,
+.seccion-mapa {
+    display:flexbox;
+    flex-direction:column-reverse;
+    align-items: center; /* Centra horizontalmente si deseas */
+}
+
+/* Por si quieres que la imagen y el mapa ocupen en total ~40% del ancho, y el texto ~60% */
+.seccion-imagen,
+.seccion-mapa {
+    width: 40%; /* Ajusta si quieres la misma anchura para ambos 
+                   (puedes poner 100% y el .seccion-texto con width:100% => wrap) */
+}
+.seccion-texto {
+    width: 60%;
+}
+
+/* En MÓVIL, se reordenan:
+   1) Imagen,
+   2) Texto,
+   3) Mapa
+   y cada uno en una fila */
+@media (max-width: 767px) {
+    .quienes-wrapper {
+        flex-direction: column; 
+        align-items: center; /* todo centrado */
+    }
+    .seccion-imagen   { order: 1; width: 100%; }
+    .seccion-texto    { order: 2; width: 90%; margin-top: 20px; }
+    .seccion-mapa     { order: 3; width: 100%; margin-top: 20px; }
+}
+
+.map-container{
+    display: flex;               /* Para centrar horizontalmente la imagen */
+    justify-content: center;     
+    margin: 30px auto;           /* Ajusta separación arriba/abajo */
+    width: 40%;                 /* Ocupa todo el ancho disponible */
+}
+
+.map-container iframe{
+    /* Polaroid: Marco blanco grueso y sombra */
+    border: 12px solid #800900;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;          /* Sutil redondeado en esquinas, opcional */
+
+}

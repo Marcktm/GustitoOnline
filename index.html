@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gustito a Salta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776; <!-- Ícono de menú hamburguesa -->
+        </div>
+        <div class="menu-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="template/quieneSomos.html">Quiénes Somos</a>
+        </div>
+    </nav>
+    
+    <!-- Franja de separación -->
+    <div class="separator"></div>
+
+    <div class="container">
+        <h1 class="titulo-principal">Gustito a Salta</h1>
+        
+        <!-- Línea divisoria -->
+        <hr class="linea-divisoria">
+        
+        <!-- Aquí se mostrará la info de "Individual", "Media Docena", "Docena" -->
+        <div id="precios-info"></div>
+
+        <!-- Línea divisoria -->
+        <hr class="linea-divisoria">
+
+        <!-- Sección de Empanadas -->
+        <h2 class="subtitulos">Empanadas</h2>
+        <div id="empanadas">
+            <!-- Productos de empanadas generados por JS -->
+        </div>
+
+        <!-- Línea divisoria -->
+        <hr class="linea-divisoria">
+
+        <!-- Sección de Bebidas -->
+        <h2 class="subtitulos">Bebidas</h2>
+        <div id="bebidas">
+            <!-- Productos de bebidas generados por JS -->
+        </div>
+
+        <!-- Desglose -->
+        <h2 class="subtitulos">Detalle:</h2>
+        <div id="desglose">
+            <!-- Aquí se mostrará el desglose final -->
+        </div>
+
+        <!-- Total -->
+        <h2>Total: <span id="total">$0</span></h2>
+
+        <!-- Botones -->
+        <div id="pedido">
+            <button id="realizar-pedido" onclick="enviarPedido()">Realizar Pedido</button>
+            <button id="resetear-pedido" style="display: none;" onclick="confirmarResetear()"></button>
+        </div>
+    </div>
+
+    <!-- MODAL Alert (un solo botón OK) -->
+    <div id="custom-alert" class="modal hidden">
+        <div class="modal-content">
+            <p id="custom-alert-message"></p>
+            <div class="buttons">
+                <button id="custom-alert-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL Confirm (dos botones: Sí / No) -->
+    <div id="custom-confirm" class="modal hidden">
+        <div class="modal-content">
+            <p id="custom-confirm-message"></p>
+            <div class="buttons">
+                <button id="custom-confirm-yes">Sí</button>
+                <button id="custom-confirm-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script con la lógica (incluye evitar pedidos vacíos, modales, etc.) -->
+    <script src="js/script.js" defer></script>
+
+    <!-- Footer con redes / contacto -->
+    <footer class="footer">
+        <p>WhatsApp: <a href="https://wa.me/5493515598947" target="_blank">+54 9 351 559-8947</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/gustitoasaltaok/?hl=es-la" target="_blank">@gustitoasaltaok</a></p>
+        <p>
+            <a href="https://maps.app.goo.gl/KGU16rFzjwoBUN9Q8" target="_blank">
+                Francisco N de Laprida 212, X5000 Córdoba
+            </a>
+        </p>
+    </footer>
+</body>
+</html>
