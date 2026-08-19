@@ -41,6 +41,7 @@ export function buildOrder({ negocio, quote, canal = 'carta-web', entrega = null
     // Quién lo pidió
     cliente: entrega ? {
       nombre: entrega.datos.nombre || null,
+      telefono: entrega.telefono,          // solo dígitos: sirve para tel: y wa.me
       nota: entrega.datos.nota || null,
     } : null,
 

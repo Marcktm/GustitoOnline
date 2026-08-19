@@ -42,7 +42,8 @@ function renderCampo(campo, modalidadId, datos, errores) {
       <span class="field__label">
         ${esc(campo.label)}${requerido ? '<span class="field__req" aria-hidden="true"> *</span>' : ''}
       </span>
-      <input type="text"
+      <input type="${esc(campo.tipo || 'text')}"
+             ${campo.teclado ? `inputmode="${esc(campo.teclado)}"` : ''}
              class="${cls('field__input', error && 'field__input--error')}"
              data-campo="${esc(campo.id)}"
              value="${esc(datos[campo.id] || '')}"

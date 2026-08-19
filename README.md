@@ -119,12 +119,12 @@ Ambas URLs están en `src/app/config.js → fuentes`.
 ### Entrega
 
 El cliente elige **retiro en el local** o **envío a domicilio** en la hoja de pedido.
-Para envío se piden nombre y dirección (obligatorios) y una aclaración opcional;
+Para envío se piden nombre, teléfono y dirección (obligatorios) y una aclaración opcional;
 el costo se coordina por WhatsApp según la zona. Los datos quedan guardados en el
 navegador, así el cliente que vuelve no los reescribe.
 
 Todo se declara en `src/app/config.js → entrega`. Agregar "comer en el local"
-(el paso previo al QR en la mesa) es sumar una modalidad; pedir el teléfono es
+(el paso previo al QR en la mesa) es sumar una modalidad; pedir un dato nuevo es
 sumar un campo. `core/delivery.js` valida y la pantalla se acomoda sola:
 
 ```js
@@ -168,7 +168,7 @@ Antes de salir se arma el payload canónico de `core/order.js`:
     "costo": null,
     "costoACoordinar": true
   },
-  "cliente": { "nombre": "Marcos Reyeros", "nota": "Timbre B" },
+  "cliente": { "nombre": "Marcos Reyeros", "telefono": "3515598947", "nota": "Timbre B" },
   "contexto": {},
   "items":  [ { "id": "saltena-de-carne", "nombre": "Salteña de Carne", "categoria": "empanadas", "cantidad": 12 } ],
   "cargos": [ { "concepto": "Docena", "cantidad": 1, "precioUnitario": 28000, "importe": 28000 } ],

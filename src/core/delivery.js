@@ -7,6 +7,7 @@
  *
  * Es dominio puro: valida, no dibuja. La UI solo muestra lo que esto decide.
  */
+import { soloDigitos } from './text.js';
 
 /** La modalidad elegida, o la primera como respaldo si llega un id raro. */
 export function getModalidad(config, modalidadId) {
@@ -49,6 +50,12 @@ export function validarEntrega(config, modalidadId, datos = {}) {
     }
     if (valor && campo.minimo && valor.length < campo.minimo) {
       errores[campo.id] = campo.mensajeCorto || 'Falta información';
+      continue;
+    }
+    // Los teléfonos se validan por dígitos, no por largo: "351 559-8947"
+    // tiene 12 caracteres pero 10 números.
+    if (valor && campo.minDigitos && soloDigitos(valor).length < campo.minDigitos) {
+      errores[campo.id] = campo.mensajeCorto || 'Revisá el número';
     }
   }
 
@@ -69,6 +76,7 @@ export function buildEntrega(config, modalidadId, datos = {}) {
     label: modalidad.label,
     detalle: modalidad.detalle || '',
     direccion: limpios.direccion || null,
+    telefono: limpios.telefono ? soloDigitos(limpios.telefono) : null,   // normalizado para la comandera
     costo: modalidad.costo ?? null,
     costoACoordinar: Boolean(modalidad.costoACoordinar),
     datos: limpios,

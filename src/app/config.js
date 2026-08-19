@@ -123,6 +123,19 @@ export const CONFIG = {
         mensajeFalta: 'Necesitamos tu nombre para el envío',
       },
       {
+        id: 'telefono',
+        label: 'Teléfono',
+        placeholder: '351 559-8947',
+        autocomplete: 'tel',
+        tipo: 'tel',              // abre el teclado numérico en el celular
+        teclado: 'tel',
+        minDigitos: 8,            // se cuentan los números, no los guiones ni espacios
+        mostrarEn: ['retiro', 'envio'],
+        requeridoEn: ['envio'],
+        mensajeFalta: 'Necesitamos tu teléfono para coordinar el envío',
+        mensajeCorto: 'Poné el número con característica',
+      },
+      {
         id: 'direccion',
         label: 'Dirección',
         placeholder: 'Calle, número, piso y depto',

@@ -88,6 +88,7 @@ function bloqueEntrega(order) {
   const lineas = ['', '*ENTREGA*', order.entrega.label];
   if (order.entrega.direccion) lineas.push(`Dirección: ${order.entrega.direccion}`);
   if (order.cliente?.nombre) lineas.push(`A nombre de: ${order.cliente.nombre}`);
+  if (order.cliente?.telefono) lineas.push(`Teléfono: ${order.cliente.telefono}`);
   if (order.cliente?.nota) lineas.push(`Aclaraciones: ${order.cliente.nota}`);
   if (order.entrega.costoACoordinar) lineas.push('(El costo del envío lo coordinamos)');
   return lineas;

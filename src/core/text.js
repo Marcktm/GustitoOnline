@@ -22,3 +22,8 @@ export function matches(haystack, query) {
   if (!query) return true;
   return normalize(haystack).includes(normalize(query));
 }
+
+/** "351 559-8947" → "3515598947". Para guardar y para armar links tel:/wa.me */
+export function soloDigitos(value) {
+  return String(value ?? '').replace(/\D/g, '');
+}
