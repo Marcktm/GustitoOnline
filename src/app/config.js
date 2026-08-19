@@ -85,6 +85,66 @@ export const CONFIG = {
   },
 
   /**
+   * Entrega. Qué modalidades ofrece el local y qué datos pide cada una.
+   * Agregar "comer en el local" (para el QR en la mesa) es sumar un objeto acá:
+   * el dominio, la validación y la pantalla se acomodan solos.
+   */
+  entrega: {
+    porDefecto: 'retiro',
+
+    modalidades: [
+      {
+        id: 'retiro',
+        label: 'Retiro en el local',
+        icono: '🏠',
+        detalle: 'Francisco N. de Laprida 212 · Nueva Córdoba',
+      },
+      {
+        id: 'envio',
+        label: 'Envío a domicilio',
+        icono: '🛵',
+        detalle: 'El costo del envío lo coordinamos por WhatsApp según la zona.',
+        costoACoordinar: true,     // el precio no se calcula acá: se acuerda en el chat
+      },
+    ],
+
+    /**
+     * `mostrarEn`  → en qué modalidades aparece el campo.
+     * `requeridoEn`→ en cuáles es obligatorio para poder enviar el pedido.
+     */
+    campos: [
+      {
+        id: 'nombre',
+        label: 'Tu nombre',
+        placeholder: 'Nombre y apellido',
+        autocomplete: 'name',
+        mostrarEn: ['retiro', 'envio'],
+        requeridoEn: ['envio'],
+        mensajeFalta: 'Necesitamos tu nombre para el envío',
+      },
+      {
+        id: 'direccion',
+        label: 'Dirección',
+        placeholder: 'Calle, número, piso y depto',
+        autocomplete: 'street-address',
+        mostrarEn: ['envio'],
+        requeridoEn: ['envio'],
+        minimo: 6,
+        mensajeFalta: 'Necesitamos la dirección para llevarte el pedido',
+        mensajeCorto: 'Poné calle y número',
+      },
+      {
+        id: 'nota',
+        label: 'Aclaraciones (opcional)',
+        placeholder: 'Timbre, referencias, sin cebolla…',
+        autocomplete: 'off',
+        mostrarEn: ['retiro', 'envio'],
+        requeridoEn: [],
+      },
+    ],
+  },
+
+  /**
    * Salida del pedido.
    *   'whatsapp'  → abre WhatsApp con el detalle (hoy)
    *   'http'      → POST del pedido a la comandera (mañana)

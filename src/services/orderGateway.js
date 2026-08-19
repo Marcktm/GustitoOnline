@@ -77,7 +77,20 @@ export function orderToText(order, locale = 'es-AR') {
     cargos,
     '',
     `*Total: ${formatMoney(order.total, locale)}*`,
+    ...bloqueEntrega(order),
   ].join('\n');
+}
+
+/** Modalidad, dirección y datos del cliente, solo si corresponden. */
+function bloqueEntrega(order) {
+  if (!order.entrega) return [];
+
+  const lineas = ['', '*ENTREGA*', order.entrega.label];
+  if (order.entrega.direccion) lineas.push(`Dirección: ${order.entrega.direccion}`);
+  if (order.cliente?.nombre) lineas.push(`A nombre de: ${order.cliente.nombre}`);
+  if (order.cliente?.nota) lineas.push(`Aclaraciones: ${order.cliente.nota}`);
+  if (order.entrega.costoACoordinar) lineas.push('(El costo del envío lo coordinamos)');
+  return lineas;
 }
 
 function defaultOpen(url) {

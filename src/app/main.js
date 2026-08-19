@@ -21,6 +21,7 @@ import { filterMenu } from '../core/menu.js';
 import { quoteOrder } from '../core/quote.js';
 import { buildOrder } from '../core/order.js';
 import { isOpenAt, todayLabel, nextOpening, weeklySummary } from '../core/schedule.js';
+import { buildEntrega, validarEntrega, getModalidad } from '../core/delivery.js';
 
 import { createSheetMenuSource } from '../data/sheetMenuSource.js';
 import { createSheetStatusSource, ESTADO } from '../data/sheetStatusSource.js';
@@ -58,6 +59,7 @@ const statusRepo = createStatusRepository({
 
 const gateway = crearGateway();
 const storage = createStorage('gustito:pedido:v1');
+const storageEntrega = createStorage('gustito:entrega:v1');
 const cart = createCart();
 
 /* ────────────────────────────── Estado de vista ───────────────────────────── */
@@ -68,6 +70,11 @@ const state = {
   categoriaActiva: null,
   hojaAbierta: false,
   aviso: null,
+  entrega: {
+    modalidad: CONFIG.entrega.porDefecto,
+    datos: {},
+    errores: {},
+  },
 };
 
 const atajosPorCategoria = Object.fromEntries(
@@ -110,6 +117,7 @@ function renderPedido() {
       locale,
       puedeEnviar: puedePedir(),
       aviso: puedePedir() ? '' : 'El local está cerrado: podés armar el pedido y enviarlo cuando abramos.',
+      entrega: { config: CONFIG.entrega, ...state.entrega },
     });
   }
 }
@@ -164,12 +172,24 @@ async function enviarPedido() {
   if (!quote.count) return avisar('Todavía no elegiste nada.', 'warn');
   if (!puedePedir()) return avisar('El local está cerrado en este momento.', 'warn');
 
-  const order = buildOrder({ negocio, quote, canal: 'carta-web' });
+  // La entrega la valida el dominio, no la UI ni el navegador.
+  const { ok, errores } = validarEntrega(CONFIG.entrega, state.entrega.modalidad, state.entrega.datos);
+  state.entrega.errores = errores;
+  if (!ok) {
+    renderPedido();
+    $('.field__input--error')?.focus();
+    return avisar('Faltan datos para el envío.', 'warn');
+  }
+
+  const entrega = buildEntrega(CONFIG.entrega, state.entrega.modalidad, state.entrega.datos);
+  const order = buildOrder({ negocio, quote, canal: 'carta-web', entrega });
 
   try {
     await gateway.send(order);
     cerrarHoja();
-    avisar('Te abrimos WhatsApp para confirmar el pedido.', 'ok');
+    avisar(order.entrega.modalidad === 'envio'
+      ? 'Te abrimos WhatsApp para confirmar el pedido y el costo del envío.'
+      : 'Te abrimos WhatsApp para confirmar el pedido.', 'ok');
   } catch (error) {
     console.error('[pedido] no se pudo enviar:', error);
     avisar('No pudimos enviar el pedido. Probá de nuevo o escribinos por WhatsApp.', 'warn', 0);
@@ -202,6 +222,7 @@ function conectarEventos() {
       case 'add': cart.add(id, cantidad); break;
       case 'dec': cart.dec(id, cantidad); break;
       case 'clear': cart.clear(); break;
+      case 'modalidad': elegirModalidad(boton.dataset.modalidad); break;
       case 'open-sheet': abrirHoja(); break;
       case 'close-sheet': cerrarHoja(); break;
       case 'send': enviarPedido(); break;
@@ -216,6 +237,25 @@ function conectarEventos() {
     renderCarta();
   });
 
+  // Tipeo en los datos de entrega. No re-renderizamos en cada tecla: eso
+  // arrancaría el foco del input. Solo actualizamos el estado y borramos
+  // el error del campo que se está corrigiendo.
+  document.addEventListener('input', (event) => {
+    const input = event.target.closest('[data-campo]');
+    if (!input) return;
+
+    const campo = input.dataset.campo;
+    state.entrega.datos[campo] = input.value;
+    guardarEntrega();
+
+    if (state.entrega.errores[campo]) {
+      delete state.entrega.errores[campo];
+      input.classList.remove('field__input--error');
+      input.removeAttribute('aria-invalid');
+      input.parentElement.querySelector('.field__error')?.remove();
+    }
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && state.hojaAbierta) cerrarHoja();
   });
@@ -226,6 +266,20 @@ function conectarEventos() {
     renderCarta();
     renderPedido();
   });
+}
+
+function elegirModalidad(modalidadId) {
+  if (state.entrega.modalidad === modalidadId) return;
+  state.entrega.modalidad = getModalidad(CONFIG.entrega, modalidadId).id;
+  state.entrega.errores = {};
+  guardarEntrega();
+  renderPedido();
+}
+
+function guardarEntrega() {
+  if (pedido.persistir) {
+    storageEntrega.write({ modalidad: state.entrega.modalidad, datos: state.entrega.datos });
+  }
 }
 
 function limpiarBusqueda() {
@@ -254,6 +308,11 @@ async function init() {
 
   if (pedido.persistir) {
     cart.hydrate(storage.read({}), (id) => state.menu.has(id) && state.menu.get(id).available);
+
+    // El cliente que vuelve no reescribe su dirección.
+    const guardada = storageEntrega.read({});
+    state.entrega.modalidad = getModalidad(CONFIG.entrega, guardada.modalidad).id;
+    state.entrega.datos = guardada.datos || {};
   }
 
   $('#loader').hidden = true;

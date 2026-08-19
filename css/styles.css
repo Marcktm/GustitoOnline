@@ -266,9 +266,12 @@ img { max-width: 100%; display: block; }
 
 .product {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "img  body"
+    "acts acts";
   align-items: center;
-  gap: 12px;
+  gap: 10px 12px;
   background: var(--papel-alto);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
@@ -280,6 +283,7 @@ img { max-width: 100%; display: block; }
 .product--off { opacity: .55; }
 
 .product__img {
+  grid-area: img;
   width: 52px;
   height: 52px;
   border-radius: 10px;
@@ -293,7 +297,7 @@ img { max-width: 100%; display: block; }
     rgba(43,26,18,.05);
 }
 
-.product__body { min-width: 0; }
+.product__body { grid-area: body; min-width: 0; }
 
 .product__name {
   font-size: 15px;
@@ -324,7 +328,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* Botones de cantidad */
-.product__actions { display: flex; align-items: center; }
+.product__actions { grid-area: acts; display: flex; align-items: center; justify-content: flex-end; }
 
 .stepper { display: flex; align-items: center; gap: 6px; }
 
@@ -584,6 +588,97 @@ img { max-width: 100%; display: block; }
   margin-top: 4px;
 }
 
+/* ------------------------------------------------------- Entrega (hoja) */
+
+.delivery {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--borde);
+}
+
+.delivery__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+  margin: 0 0 10px;
+}
+
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tinta-2);
+  background: var(--papel-alto);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-s);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.mode--active {
+  border-color: var(--terracota);
+  background: rgba(184, 59, 30, .07);
+  color: var(--tinta);
+}
+
+.mode__icon { font-size: 20px; line-height: 1; }
+
+.delivery__detail {
+  margin: 9px 0 0;
+  font-size: 13px;
+  color: var(--tinta-2);
+  line-height: 1.4;
+}
+
+.fields { display: grid; gap: 10px; margin-top: 14px; }
+
+.field { display: block; }
+
+.field__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tinta-2);
+  margin-bottom: 4px;
+}
+
+.field__req { color: var(--terracota); }
+
+.field__input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;          /* 16px evita que iOS haga zoom al enfocar */
+  color: var(--tinta);
+  background: var(--papel-alto);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-s);
+  padding: 11px 13px;
+  outline: none;
+}
+
+.field__input:focus { border-color: var(--terracota); }
+.field__input::placeholder { color: rgba(43, 26, 18, .35); }
+
+.field__input--error { border-color: var(--terracota); background: rgba(184, 59, 30, .05); }
+
+.field__error {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--terracota);
+}
+
 /* ------------------------------------------------------------------ Pie */
 
 .footer {
@@ -671,9 +766,16 @@ img { max-width: 100%; display: block; }
 
 /* ------------------------------------------------------------ Escritorio */
 
+/* Tarjeta ancha (>=~420px): los botones vuelven a la misma fila del nombre. */
+@media (min-width: 560px) {
+  .product {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "img body acts";
+  }
+}
+
 @media (min-width: 700px) {
   .app { padding-bottom: 140px; }
-  .products { display: grid; grid-template-columns: 1fr 1fr; }
   .footer { grid-template-columns: 1fr 1fr; }
   .footer__note { grid-column: 1 / -1; }
   .sheet { border-radius: 20px; margin-bottom: 24px; max-height: 82vh; }
@@ -685,4 +787,11 @@ img { max-width: 100%; display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+/* Dos columnas solo con pantalla grande: cada tarjeta queda en ~425px,
+   ancho suficiente para que el nombre no se parta. */
+@media (min-width: 1000px) {
+  :root { --ancho: 860px; }
+  .products { display: grid; grid-template-columns: 1fr 1fr; }
 }

@@ -8,6 +8,7 @@
  * En empanadas no coinciden, y eso es exactamente lo que hay que mostrar bien.
  */
 import { formatMoney } from '../core/money.js';
+import { renderDelivery } from './deliveryView.js';
 import { esc, list } from './html.js';
 
 /** Barra inferior con el resumen. */
@@ -23,9 +24,9 @@ export function renderCartBar(count, total, locale) {
 /**
  * Hoja de detalle.
  * @param {object} quote  resultado de core/quote.js
- * @param {object} opts   { locale, puedeEnviar, aviso }
+ * @param {object} opts   { locale, puedeEnviar, aviso, entrega }
  */
-export function renderSheet(quote, { locale, puedeEnviar = true, aviso = '' }) {
+export function renderSheet(quote, { locale, puedeEnviar = true, aviso = '', entrega = null }) {
   return `
     <div class="sheet" data-sheet role="dialog" aria-modal="true" aria-label="Detalle del pedido">
       <header class="sheet__head">
@@ -39,6 +40,7 @@ export function renderSheet(quote, { locale, puedeEnviar = true, aviso = '' }) {
       <div class="sheet__body">
         ${list(quote.groups, (g) => renderGroup(g, locale))}
         ${renderCharges(quote, locale)}
+        ${entrega ? renderDelivery(entrega.config, entrega) : ''}
       </div>
 
       <footer class="sheet__foot">

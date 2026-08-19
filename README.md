@@ -116,6 +116,24 @@ en la primera celda, con un mensaje opcional en la segunda).
 
 Ambas URLs están en `src/app/config.js → fuentes`.
 
+### Entrega
+
+El cliente elige **retiro en el local** o **envío a domicilio** en la hoja de pedido.
+Para envío se piden nombre y dirección (obligatorios) y una aclaración opcional;
+el costo se coordina por WhatsApp según la zona. Los datos quedan guardados en el
+navegador, así el cliente que vuelve no los reescribe.
+
+Todo se declara en `src/app/config.js → entrega`. Agregar "comer en el local"
+(el paso previo al QR en la mesa) es sumar una modalidad; pedir el teléfono es
+sumar un campo. `core/delivery.js` valida y la pantalla se acomoda sola:
+
+```js
+{ id: 'salon', label: 'Comer en el local', icono: '🍽️' }
+```
+
+Si algún día el envío pasa a tener precio fijo, se agrega `costo` a la modalidad
+y se suma como un cargo más: el contrato ya tiene el campo.
+
 ### Cambiar horarios, WhatsApp, categorías
 
 Todo en `src/app/config.js`. Agregar una categoría nueva (postres, salsas, combos)
@@ -137,25 +155,35 @@ Antes de salir se arma el payload canónico de `core/order.js`:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "local": "Gustito a Salta",
   "moneda": "ARS",
   "canal": "carta-web",
-  "creadoEn": "2026-08-18T22:10:00.000Z",
+  "creadoEn": "2026-08-18T22:30:00.000Z",
   "estado": "nuevo",
-  "cliente": null,
-  "contexto": { "modalidad": "takeaway" },
-  "items":  [ { "id": "saltena-de-carne", "nombre": "Salteña de carne", "categoria": "empanadas", "cantidad": 7 } ],
-  "cargos": [ { "concepto": "Docena", "cantidad": 1, "precioUnitario": 17500, "importe": 17500 } ],
-  "total": 22900
+  "entrega": {
+    "modalidad": "envio",
+    "label": "Envío a domicilio",
+    "direccion": "Laprida 212, 3º B",
+    "costo": null,
+    "costoACoordinar": true
+  },
+  "cliente": { "nombre": "Marcos Reyeros", "nota": "Timbre B" },
+  "contexto": {},
+  "items":  [ { "id": "saltena-de-carne", "nombre": "Salteña de Carne", "categoria": "empanadas", "cantidad": 12 } ],
+  "cargos": [ { "concepto": "Docena", "cantidad": 1, "precioUnitario": 28000, "importe": 28000 } ],
+  "total": 28000
 }
 ```
 
-Dos bloques separados a propósito:
+Tres bloques separados a propósito:
 
 - **`items`** → lo que necesita la **cocina** (qué preparar).
 - **`cargos`** → lo que necesita la **caja** (cómo se cobra). En empanadas no coinciden:
   7 de carne + 6 de pollo se cobran como *1 docena + 1 individual*.
+- **`entrega` + `cliente`** → lo que necesita el **reparto** (a dónde y a nombre de quién).
+  `costo: null` con `costoACoordinar: true` significa "el envío se cierra por WhatsApp":
+  la comandera sabe que ese número todavía falta en vez de asumir cero.
 
 Cuando exista el backend, el cambio es **una línea** en `src/app/config.js`:
 
