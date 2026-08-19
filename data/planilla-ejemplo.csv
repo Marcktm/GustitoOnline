@@ -1,0 +1,12 @@
+producto,categoria,precio,stock,imagen
+Individual,comida,"1.200,00",SI,
+Media Docena,comida,"6.500,00",SI,
+Docena,comida,"12.000,00",SI,
+Carne cortada a cuchillo,comida,0,SI,https://drive.google.com/file/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/view
+Carne picante,comida,0,SI,
+Pollo,comida,0,SI,
+Jamón y queso,comida,0,NO,
+Humita,comida,0,SI,
+Agua 500 ml,bebida,"1.500,00",SI,
+Gaseosa 500 ml,bebida,"2.000,00",SI,
+Cerveza,bebida,"3.000,00",NO,

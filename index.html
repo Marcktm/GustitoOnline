@@ -1,101 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Gustito a Salta</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#faf4e8">
+  <title>Gustito a Salta · Carta</title>
+  <meta name="description" content="Carta digital de Gustito a Salta — empanadas salteñas cortadas a cuchillo. Francisco N. de Laprida 212, Nueva Córdoba.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <nav>
-        <div class="menu-icon" onclick="toggleMenu()">
-            &#9776; <!-- Ícono de menú hamburguesa -->
-        </div>
-        <div class="menu-links">
-            <a href="index.html" class="active">Inicio</a>
-            <a href="template/quieneSomos.html">Quiénes Somos</a>
-        </div>
-    </nav>
-    
-    <!-- Franja de separación -->
-    <div class="separator"></div>
+  <div class="app" id="app">
 
-    <div class="container">
-        <h1 class="titulo-principal">Gustito a Salta</h1>
-        
-        <!-- Línea divisoria -->
-        <hr class="linea-divisoria">
-        
-        <!-- Aquí se mostrará la info de "Individual", "Media Docena", "Docena" -->
-        <div id="precios-info"></div>
+    <!-- ENCABEZADO -->
+    <header class="hero">
+      <nav class="nav">
+        <a class="nav__link nav__link--active" href="./index.html">Carta</a>
+        <a class="nav__link" href="./nosotros.html">Quiénes somos</a>
+      </nav>
 
-        <!-- Línea divisoria -->
-        <hr class="linea-divisoria">
+      <p class="hero__eyebrow">Empanadas salteñas</p>
+      <h1 class="hero__title" data-negocio="nombre">Gustito a Salta</h1>
+      <p class="hero__tagline" data-negocio="tagline">Cortadas a cuchillo, como en Salta.</p>
+      <div id="status" aria-live="polite"></div>
+    </header>
 
-        <!-- Sección de Empanadas -->
-        <h2 class="subtitulos">Empanadas</h2>
-        <div id="empanadas">
-            <!-- Productos de empanadas generados por JS -->
-        </div>
+    <div id="notice" aria-live="polite"></div>
 
-        <!-- Línea divisoria -->
-        <hr class="linea-divisoria">
-
-        <!-- Sección de Bebidas -->
-        <h2 class="subtitulos">Bebidas</h2>
-        <div id="bebidas">
-            <!-- Productos de bebidas generados por JS -->
-        </div>
-
-        <!-- Desglose -->
-        <h2 class="subtitulos">Detalle:</h2>
-        <div id="desglose">
-            <!-- Aquí se mostrará el desglose final -->
-        </div>
-
-        <!-- Total -->
-        <h2>Total: <span id="total">$0</span></h2>
-
-        <!-- Botones -->
-        <div id="pedido">
-            <button id="realizar-pedido" onclick="enviarPedido()">Realizar Pedido</button>
-            <button id="resetear-pedido" style="display: none;" onclick="confirmarResetear()"></button>
-        </div>
+    <!-- BUSCADOR + PESTAÑAS (pegados arriba al hacer scroll) -->
+    <div class="bar">
+      <div class="search">
+        <svg class="search__icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.6" y2="16.6"></line>
+        </svg>
+        <input class="search__input" id="search" type="search" placeholder="Buscar en la carta…" autocomplete="off" aria-label="Buscar en la carta">
+        <button class="search__clear" id="search-clear" type="button" data-act="clear-search" aria-label="Limpiar búsqueda" hidden>×</button>
+      </div>
+      <div class="tabs" id="tabs" role="tablist"></div>
     </div>
 
-    <!-- MODAL Alert (un solo botón OK) -->
-    <div id="custom-alert" class="modal hidden">
-        <div class="modal-content">
-            <p id="custom-alert-message"></p>
-            <div class="buttons">
-                <button id="custom-alert-ok">OK</button>
-            </div>
-        </div>
-    </div>
+    <!-- CARTA -->
+    <main>
+      <p class="loader" id="loader">Cargando la carta…</p>
+      <div id="menu"></div>
+    </main>
 
-    <!-- MODAL Confirm (dos botones: Sí / No) -->
-    <div id="custom-confirm" class="modal hidden">
-        <div class="modal-content">
-            <p id="custom-confirm-message"></p>
-            <div class="buttons">
-                <button id="custom-confirm-yes">Sí</button>
-                <button id="custom-confirm-no">No</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script con la lógica (incluye evitar pedidos vacíos, modales, etc.) -->
-    <script src="js/script.js" defer></script>
-
-    <!-- Footer con redes / contacto -->
+    <!-- PIE -->
     <footer class="footer">
-        <p>WhatsApp: <a href="https://wa.me/5493515598947" target="_blank">+54 9 351 559-8947</a></p>
-        <p>Instagram: <a href="https://www.instagram.com/gustitoasaltaok/?hl=es-la" target="_blank">@gustitoasaltaok</a></p>
-        <p>
-            <a href="https://maps.app.goo.gl/KGU16rFzjwoBUN9Q8" target="_blank">
-                Francisco N de Laprida 212, X5000 Córdoba
-            </a>
-        </p>
+      <div class="footer__block">
+        <h2 class="footer__title">Horarios</h2>
+        <div class="hours" id="hours"></div>
+      </div>
+      <div class="footer__block">
+        <h2 class="footer__title">Dónde estamos</h2>
+        <a class="footer__link" id="map-link" target="_blank" rel="noopener">Dirección</a>
+        <a class="footer__link" id="wa-link" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="footer__link" id="ig-link" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer__note">Precios en pesos, sujetos a cambios.</p>
     </footer>
+
+    <!-- PEDIDO -->
+    <div class="cartbar" id="cartbar" hidden></div>
+    <div class="sheet-overlay" id="sheet-overlay" hidden></div>
+  </div>
+
+  <script type="module" src="./src/app/main.js"></script>
 </body>
 </html>
