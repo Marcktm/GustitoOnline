@@ -25,9 +25,9 @@ export const CONFIG = {
    * pie de página se calculan solos desde acá.
    */
   horarios: {
-    0: [[10, 13.5], [20, 23.5]],
-    1: [[10, 13.5], [20, 23.5]],
-    2: [[10, 13.5], [20, 23.5]],
+    0: [[10, 13.5], [20, 23.5]],   // domingo
+    1: null,                       // lunes: cerrado
+    2: [[20, 23.5]],               // martes: solo a la noche
     3: [[10, 13.5], [20, 23.5]],
     4: [[10, 13.5], [20, 23.5]],
     5: [[10, 13.5], [20, 23.5]],
