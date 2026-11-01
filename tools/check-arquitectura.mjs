@@ -10,9 +10,10 @@
  * Correrlo antes de cada commit. Si esto pasa, la arquitectura sigue en pie.
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, dirname, relative, resolve } from 'node:path';
+import { join, dirname, relative, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const RAIZ = resolve(new URL('..', import.meta.url).pathname);
+const RAIZ = fileURLToPath(new URL('..', import.meta.url));
 const SRC = join(RAIZ, 'src');
 
 /** Qué puede importar cada capa. `app` es la única raíz: puede importar todo. */
@@ -29,13 +30,13 @@ const grafo = new Map();
 const violaciones = [];
 
 for (const archivo of archivos) {
-  const id = relative(SRC, archivo);
+  const id = relative(SRC, archivo).split(sep).join('/');
   const capa = id.split('/')[0];
   const deps = [];
 
   for (const spec of imports(readFileSync(archivo, 'utf8'))) {
     if (!spec.startsWith('.')) continue;                       // dependencia externa
-    const destino = relative(SRC, resolve(dirname(archivo), spec));
+    const destino = relative(SRC, resolve(dirname(archivo), spec)).split(sep).join('/');
     const capaDestino = destino.split('/')[0];
     deps.push(destino);
 

@@ -1,0 +1,90 @@
+/* ------------------------------------------------------- Entrega (hoja) */
+
+.delivery {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--borde);
+}
+
+.delivery__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+  margin: 0 0 10px;
+}
+
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tinta-2);
+  background: var(--papel-alto);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-s);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.mode--active {
+  border-color: var(--terracota);
+  background: rgba(184, 59, 30, .07);
+  color: var(--tinta);
+}
+
+.mode__icon { font-size: 20px; line-height: 1; }
+
+.delivery__detail {
+  margin: 9px 0 0;
+  font-size: 13px;
+  color: var(--tinta-2);
+  line-height: 1.4;
+}
+
+.fields { display: grid; gap: 10px; margin-top: 14px; }
+
+.field { display: block; }
+
+.field__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tinta-2);
+  margin-bottom: 4px;
+}
+
+.field__req { color: var(--terracota); }
+
+.field__input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;          /* 16px evita que iOS haga zoom al enfocar */
+  color: var(--tinta);
+  background: var(--papel-alto);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-s);
+  padding: 11px 13px;
+  outline: none;
+}
+
+.field__input:focus { border-color: var(--terracota); }
+.field__input::placeholder { color: rgba(43, 26, 18, .35); }
+
+.field__input--error { border-color: var(--terracota); background: rgba(184, 59, 30, .05); }
+
+.field__error {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--terracota);
+}
