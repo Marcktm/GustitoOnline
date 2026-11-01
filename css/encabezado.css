@@ -1,28 +1,6 @@
 /* ---------------------------------------------------------------- Encabezado */
 
-.nav {
-  display: flex;
-  gap: var(--espacio-2);
-  padding: var(--espacio-4) 0 var(--espacio-4);
-}
-
-.nav__link {
-  font-size: var(--texto);
-  font-weight: var(--peso-etiqueta);
-  color: var(--tinta-2);
-  text-decoration: none;
-  padding: var(--espacio-2) var(--espacio-4);
-  border-radius: var(--radio-pastilla);
-  border: var(--linea) solid transparent;
-}
-
-.nav__link--active {
-  color: var(--tinta);
-  background: var(--papel-alto);
-  border-color: var(--filete);
-}
-
-.hero { text-align: center; padding-bottom: var(--espacio-2); }
+.hero { text-align: center; padding: var(--espacio-5) 0 var(--espacio-2); }
 
 .hero__eyebrow {
   margin: var(--espacio-2) 0 0;
