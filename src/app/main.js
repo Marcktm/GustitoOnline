@@ -134,10 +134,11 @@ function renderMarco() {
 
 function renderContacto() {
   $('#wa-link').href = `https://wa.me/${negocio.whatsapp}`;
-  $('#wa-link').textContent = negocio.whatsappLindo;
+  $('#wa-link .footer__text').textContent = negocio.whatsappLindo;
   $('#ig-link').href = `https://instagram.com/${negocio.instagram}`;
+  $('#ig-link .footer__text').textContent = negocio.instagram;   // sin @: el ícono ya dice qué es
   $('#map-link').href = negocio.mapsUrl;
-  $('#map-link').textContent = negocio.direccion;
+  $('#map-link .footer__text').textContent = negocio.direccion;
   document.querySelectorAll('[data-negocio="nombre"]').forEach((el) => { el.textContent = negocio.nombre; });
   document.querySelectorAll('[data-negocio="tagline"]').forEach((el) => { el.textContent = negocio.tagline; });
 }
