@@ -211,9 +211,13 @@ sin apagar lo que hoy funciona. Ningún otro archivo se toca.
 ## Verificar
 
 ```bash
-node tools/check-arquitectura.mjs    # ciclos + reglas de capas
+node tools/check-arquitectura.mjs    # ciclos + reglas de capas  (npm run check)
+npm test                             # tests del dominio (core/), sin dependencias
 python3 -m http.server 8080          # probar la carta
 ```
+
+Los dos chequeos corren solos en cada PR (`.github/workflows/verificar.yml`).
+Todo cambio en `core/` trae su test en `tests/`.
 
 ---
 

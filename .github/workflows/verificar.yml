@@ -1,0 +1,19 @@
+name: Verificar
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Arquitectura por capas
+        run: node tools/check-arquitectura.mjs
+      - name: Tests del dominio
+        run: npm test
