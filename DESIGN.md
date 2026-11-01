@@ -129,7 +129,7 @@ de libro sin ser decorativas, aguantan bien en tamaños chicos de celular, y
 
 ### 6.1 Encabezado
 - Eyebrow "EMPANADAS SALTEÑAS" (terracota, 12 px, espaciado) → logo → bajada
-  "Cortadas a cuchillo, como en Salta." → pastilla de estado.
+  "Casa de Empanadas" → pastilla de estado.
 - Estado: `● Abierto · cierra 23:30` en verde cerro, o `Cerrado · abre hoy 20:00`.
   Siempre con la próxima hora, nunca solo "Cerrado".
 - Altura total en móvil: que la primera categoría asome sin scrollear (≤ 45% del alto).
