@@ -136,7 +136,6 @@ function renderContacto() {
   $('#wa-link').href = `https://wa.me/${negocio.whatsapp}`;
   $('#wa-link').textContent = negocio.whatsappLindo;
   $('#ig-link').href = `https://instagram.com/${negocio.instagram}`;
-  $('#ig-link').textContent = `@${negocio.instagram}`;
   $('#map-link').href = negocio.mapsUrl;
   $('#map-link').textContent = negocio.direccion;
   document.querySelectorAll('[data-negocio="nombre"]').forEach((el) => { el.textContent = negocio.nombre; });

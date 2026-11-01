@@ -35,4 +35,16 @@
 }
 .footer__link:hover { border-bottom-color: var(--filete); }
 
-.footer__note { font-size: var(--texto-etiqueta); color: var(--tinta-2); margin: 0; }
+/* Instagram: solo el ícono, en el marrón del logo. Área táctil de 44 px. */
+.footer__ig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--alto-busqueda);
+  height: var(--alto-busqueda);
+  margin-left: calc(-1 * var(--espacio-2));
+  color: var(--tinta-logo);
+  border-radius: var(--radio-s);
+}
+.footer__ig:hover { color: var(--terracota); }
+.footer__ig:focus-visible { outline: 2px solid var(--terracota); outline-offset: 2px; }

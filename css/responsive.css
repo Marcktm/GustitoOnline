@@ -10,7 +10,6 @@
 
 @media (min-width: 700px) {
   .footer { grid-template-columns: 1fr 1fr; }
-  .footer__note { grid-column: 1 / -1; }
   .sheet { border-radius: var(--radio); margin-bottom: var(--espacio-5); max-height: var(--alto-hoja-escritorio); }
   .sheet-overlay { align-items: center; padding: var(--espacio-5); }
   .about { grid-template-columns: 1fr 1fr; align-items: start; }
