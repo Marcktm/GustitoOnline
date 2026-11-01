@@ -20,7 +20,6 @@ export function createLocalMenu() {
     {
       id: 'empanadas',
       label: 'Empanadas',
-      tagline: 'Salteñas, cortadas a cuchillo y con repulgue a mano.',
       pricing: bundlePricing(ESCALONES_EMPANADAS),
       products: [
         { id: 'carne', name: 'Carne cortada a cuchillo' },
@@ -34,7 +33,6 @@ export function createLocalMenu() {
     {
       id: 'bebidas',
       label: 'Bebidas',
-      tagline: 'Para acompañar.',
       pricing: unitPricing(),
       products: [
         { id: 'agua', name: 'Agua 500 ml', price: 1500 },
