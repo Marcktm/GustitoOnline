@@ -128,8 +128,8 @@ de libro sin ser decorativas, aguantan bien en tamaños chicos de celular, y
 ## 6. Componentes
 
 ### 6.1 Encabezado
-- Eyebrow "EMPANADAS SALTEÑAS" (terracota, 12 px, espaciado) → logo → bajada
-  "Cortadas a cuchillo, como en Salta." → pastilla de estado.
+- Eyebrow "CASA DE EMPANADAS" (terracota, 12 px, espaciado; sale de `negocio.rubro`)
+  → logo → pastilla de estado. Sin bajada: el logo alcanza.
 - Estado: `● Abierto · cierra 23:30` en verde cerro, o `Cerrado · abre hoy 20:00`.
   Siempre con la próxima hora, nunca solo "Cerrado".
 - Altura total en móvil: que la primera categoría asome sin scrollear (≤ 45% del alto).

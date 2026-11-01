@@ -8,8 +8,7 @@
 export const CONFIG = {
   negocio: {
     nombre: 'Gustito a Salta',
-    rubro: 'Empanadas salteñas',
-    tagline: 'Cortadas a cuchillo, como en Salta.',
+    rubro: 'Casa de Empanadas',          // se muestra arriba del logo
     whatsapp: '5493515598947',                 // formato wa.me: sin +, sin espacios
     whatsappLindo: '+54 9 351 559-8947',
     instagram: 'gustitoasaltaok',
