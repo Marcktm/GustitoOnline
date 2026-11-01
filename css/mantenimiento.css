@@ -1,16 +1,16 @@
 /* ------------------------------------------------------- Mantenimiento */
 
 .maintenance {
-  min-height: 70vh;
+  min-height: var(--alto-mantenimiento);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 14px;
-  padding: 40px 20px;
+  gap: var(--espacio-4);
+  padding: var(--espacio-7) var(--espacio-5);
 }
 
-.maintenance__title { font-family: var(--fuente-titulo); font-size: 38px; margin: 0; }
-.maintenance__msg { color: var(--tinta-2); margin: 0; max-width: 34ch; }
-.maintenance .btn { max-width: 280px; }
+.maintenance__title { font-size: var(--titulo-mantenimiento); margin: 0; }
+.maintenance__msg { color: var(--tinta-2); margin: 0; max-width: var(--ancho-mensaje); }
+.maintenance .btn { max-width: var(--ancho-contacto); }

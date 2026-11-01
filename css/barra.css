@@ -4,20 +4,20 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  padding: 14px 0 10px;
-  margin-top: 12px;
-  background: linear-gradient(var(--papel) 78%, rgba(250,244,232,0));
+  padding: var(--espacio-4) 0 var(--espacio-3);
+  margin-top: var(--espacio-3);
+  background: var(--fondo-barra);
 }
 
 .search {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: var(--espacio-2);
   background: var(--papel-alto);
-  border: 1px solid var(--borde);
-  border-radius: 999px;
-  padding: 0 14px;
-  height: 44px;
+  border: var(--linea) solid var(--filete);
+  border-radius: var(--radio-pastilla);
+  padding: 0 var(--espacio-4);
+  height: var(--alto-busqueda);
   box-shadow: var(--sombra);
 }
 
@@ -28,7 +28,7 @@
   border: 0;
   background: none;
   font: inherit;
-  font-size: 15px;
+  font-size: var(--texto);
   color: inherit;
   outline: none;
   min-width: 0;
@@ -38,17 +38,17 @@
 .search__clear {
   border: 0;
   background: none;
-  font-size: 22px;
+  font-size: var(--texto-control);
   line-height: 1;
   color: var(--tinta-2);
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0 var(--espacio-1);
 }
 
 .tabs {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: var(--espacio-2);
+  margin-top: var(--espacio-3);
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -58,13 +58,13 @@
 .tab {
   flex: none;
   font: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--texto);
+  font-weight: var(--peso-etiqueta);
   color: var(--tinta-2);
   background: var(--papel-alto);
-  border: 1px solid var(--borde);
-  border-radius: 999px;
-  padding: 8px 16px;
+  border: var(--linea) solid var(--filete);
+  border-radius: var(--radio-pastilla);
+  padding: var(--espacio-2) var(--espacio-4);
   cursor: pointer;
   white-space: nowrap;
 }

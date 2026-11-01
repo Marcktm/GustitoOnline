@@ -1,38 +1,38 @@
 /* ------------------------------------------------------------------ Pie */
 
 .footer {
-  margin-top: 34px;
-  padding-top: 22px;
-  border-top: 1px solid var(--borde);
+  margin-top: var(--espacio-6);
+  padding-top: var(--espacio-5);
+  border-top: var(--linea) solid var(--filete);
   display: grid;
-  gap: 20px;
+  gap: var(--espacio-5);
 }
 
 .footer__title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .12em;
+  font-size: var(--texto-etiqueta);
+  font-weight: var(--peso-etiqueta);
+  letter-spacing: var(--interletrado-etiqueta);
   text-transform: uppercase;
   color: var(--tinta-2);
-  margin: 0 0 8px;
+  margin: 0 0 var(--espacio-2);
 }
 
 .hours__row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  font-size: 14px;
-  padding: 3px 0;
+  gap: var(--espacio-3);
+  font-size: var(--texto);
+  padding: var(--espacio-1) 0;
 }
 
 .footer__link {
   display: block;
   color: var(--tinta);
   text-decoration: none;
-  font-size: 14px;
-  padding: 4px 0;
-  border-bottom: 1px solid transparent;
+  font-size: var(--texto);
+  padding: var(--espacio-1) 0;
+  border-bottom: var(--linea) solid transparent;
 }
-.footer__link:hover { border-bottom-color: var(--borde); }
+.footer__link:hover { border-bottom-color: var(--filete); }
 
-.footer__note { font-size: 12px; color: var(--tinta-2); margin: 0; }
+.footer__note { font-size: var(--texto-etiqueta); color: var(--tinta-2); margin: 0; }

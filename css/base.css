@@ -16,8 +16,8 @@ body {
   margin: 0;
   background: var(--papel);
   color: var(--tinta);
-  font-family: var(--fuente-texto);
-  font-size: 16px;
+  font-size: var(--texto-base);
+  font-weight: var(--peso-texto);
   line-height: 1.5;
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -26,4 +26,20 @@ body.is-locked { overflow: hidden; }
 
 img { max-width: 100%; display: block; }
 
-.app { max-width: var(--ancho); margin: 0 auto; padding: 0 16px 120px; }
+.app { max-width: var(--ancho); margin: 0 auto; padding: 0 var(--espacio-4) var(--alto-barra-reserva); }
+
+/* Tipografía global: qué elementos usan cada familia (los valores, en tokens.css). */
+body, button, input, textarea, select {
+  font-family: var(--fuente-texto);
+}
+
+.hero__title, .category__title, .sheet__title, .sheet__total strong,
+.cartbar__total, .empty__title, .maintenance__title, .about__closing {
+  font-family: var(--fuente-titulo);
+  font-weight: var(--peso-titulo);
+}
+
+.tier__price, .product__price, .line__unit, .charge__amount,
+.cartbar__total, .sheet__total strong, .counter__qty, .cartbar__count {
+  font-variant-numeric: tabular-nums;
+}

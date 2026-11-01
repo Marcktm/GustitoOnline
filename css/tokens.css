@@ -1,23 +1,99 @@
 /* Tokens de diseño — ver DESIGN.md §3–5. Único lugar con colores, tamaños y espacios. */
 
 :root {
-  /* Paleta: papel de horno, tinta de carbón, terracota de adobe, ocre de maíz */
+  /* Paleta del logo: papel de horno, marrón de la letra y ocre del círculo */
   --papel:      #faf4e8;
   --papel-alto: #fffdf8;
-  --tinta:      #2b1a12;
-  --tinta-2:    #7a6455;
-  --terracota:  #b83b1e;
-  --terracota-2:#932f16;
-  --ocre:       #e0a12c;
-  --cerro:      #3f6b4a;
-  --borde:      rgba(43, 26, 18, .12);
-  --sombra:     0 2px 10px rgba(43, 26, 18, .07);
-  --sombra-alta:0 -6px 24px rgba(43, 26, 18, .16);
+  --tinta:      #3a1a0e;
+  --tinta-2:    #6e5546;
+  --filete:     rgba(58, 26, 14, .14);
+  --terracota:  #b03a1c;
+  --terracota-2:#8e2d14;
+  --ocre:       #f2b134;
+  --ocre-suave: #fbe6b4;
+  --abierto:    #3f6b4a;
+  --cerrado:    #8e2d14;
 
-  --radio:   14px;
-  --radio-s: 10px;
+  /* Superficies y estados derivados de la misma paleta */
+  --tinta-suave: rgba(58, 26, 14, .06);
+  --tinta-tenue: rgba(58, 26, 14, .05);
+  --velo: rgba(58, 26, 14, .45);
+  --control-deshabilitado: rgba(58, 26, 14, .18);
+  --texto-deshabilitado: rgba(58, 26, 14, .5);
+  --terracota-tenue: rgba(176, 58, 28, .05);
+  --ocre-filete: rgba(242, 177, 52, .5);
+  --ocre-mancha: rgba(242, 177, 52, .35);
+  --abierto-filete: rgba(63, 107, 74, .4);
+  --abierto-suave: rgba(63, 107, 74, .10);
+  --papel-transparente: rgba(250, 244, 232, 0);
+  --papel-alto-suave: rgba(255, 253, 248, .22);
+  --papel-alto-tenue: rgba(255, 253, 248, .15);
+  --halo-abierto: 0 0 0 3px rgba(63, 107, 74, .18);
+  --halo-cerrado: 0 0 0 3px rgba(142, 45, 20, .16);
+  --sombra: 0 -6px 24px rgba(58, 26, 14, .16);
+  --sombra-alta: var(--sombra);
+  --fondo-barra: linear-gradient(var(--papel) 78%, var(--papel-transparente));
+  --fondo-barra-pedido: linear-gradient(var(--papel-transparente), var(--papel) 42%);
+  --fondo-sin-foto: radial-gradient(circle at 30% 30%, var(--ocre-mancha), transparent 60%), var(--tinta-tenue);
+
+  --radio:   12px;
+  --radio-s: 6px;
+  --radio-pastilla: 999px;
+  --radio-circulo: 50%;
+  --linea: 1px;
+  --linea-control: 1.5px;
   --ancho:   680px;
 
-  --fuente-titulo: 'Fraunces', Georgia, serif;
-  --fuente-texto:  'Inter', system-ui, -apple-system, sans-serif;
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 12px;
+  --espacio-4: 16px;
+  --espacio-5: 24px;
+  --espacio-6: 32px;
+  --espacio-7: 48px;
+
+  --fuente-titulo: 'Alegreya', Georgia, serif;
+  --fuente-texto:  'Alegreya Sans', system-ui, sans-serif;
+  --peso-texto: 400;
+  --peso-etiqueta: 500;
+  --peso-fuerte: 700;
+  --peso-titulo: 800;
+  --texto-etiqueta: 12px;
+  --texto: 15px;
+  --texto-base: 16px;
+  --texto-producto: 17px;
+  --titulo-categoria: 26px;
+  --texto-total: 26px;
+  --texto-control: 20px;
+  --titulo-hero: clamp(34px, 11vw, 52px);
+  --titulo-mantenimiento: 30px;
+  --interletrado-etiqueta: .08em;
+  --interletrado-titulo: -.02em;
+
+  --alto-barra-reserva: 120px;
+  --ancho-logo: min(320px, 82vw);
+  --alto-busqueda: 44px;
+  --ancho-escalon: 96px;
+  --lado-foto-producto: 52px;
+  --lado-agregar: 36px;
+  --lado-contador: 30px;
+  --ancho-cantidad: 22px;
+  --lado-cuenta-pedido: 26px;
+  --alto-hoja: 88vh;
+  --alto-hoja-escritorio: 82vh;
+  --alto-mantenimiento: 70vh;
+  --ancho-mensaje: 34ch;
+  --ancho-contacto: 280px;
+  --lado-mapa: 320px;
+}
+
+@media (min-width: 700px) {
+  :root {
+    --titulo-categoria: 30px;
+    --alto-barra-reserva: 140px;
+  }
+}
+
+@media (min-width: 1000px) {
+  :root { --ancho: 860px; }
 }
