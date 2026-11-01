@@ -1,0 +1,83 @@
+/* ---------------------------------------------------------------- Encabezado */
+
+.nav {
+  display: flex;
+  gap: 8px;
+  padding: 14px 0 18px;
+}
+
+.nav__link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tinta-2);
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.nav__link--active {
+  color: var(--tinta);
+  background: var(--papel-alto);
+  border-color: var(--borde);
+}
+
+.hero { text-align: center; padding-bottom: 8px; }
+
+.hero__eyebrow {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--terracota);
+}
+
+.hero__title {
+  font-family: var(--fuente-titulo);
+  font-weight: 900;
+  font-size: clamp(34px, 11vw, 52px);
+  line-height: 1.02;
+  margin: 6px 0 4px;
+  letter-spacing: -.02em;
+}
+
+/* Nombre con la letra del logo (imagen recortada del logo original) */
+.hero__title--logo { margin: 10px 0 6px; line-height: 0; }
+.hero__logo {
+  display: inline-block;
+  width: min(320px, 82vw);
+  height: auto;
+}
+
+.hero__tagline { margin: 0 0 14px; color: var(--tinta-2); font-size: 15px; }
+
+/* Estado abierto / cerrado */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: var(--papel-alto);
+}
+
+.status__dot { width: 8px; height: 8px; border-radius: 50%; }
+.status--open   .status__dot { background: var(--cerro);     box-shadow: 0 0 0 3px rgba(63,107,74,.18); }
+.status--closed .status__dot { background: var(--terracota); box-shadow: 0 0 0 3px rgba(184,59,30,.16); }
+.status__detail { font-weight: 500; color: var(--tinta-2); }
+
+/* Avisos */
+.notice {
+  margin: 12px 0 0;
+  padding: 11px 14px;
+  border-radius: var(--radio-s);
+  font-size: 14px;
+  border: 1px solid var(--borde);
+  background: var(--papel-alto);
+}
+.notice--warn { border-color: rgba(224,161,44,.5); background: rgba(224,161,44,.12); }
+.notice--ok   { border-color: rgba(63,107,74,.4);  background: rgba(63,107,74,.10); }

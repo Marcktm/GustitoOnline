@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Gustito a Salta — sistema visual
+   Mobile-first. Tokens arriba: cambiar la marca es cambiar estas variables.
+   ========================================================================== */
+
+
+* { box-sizing: border-box; }
+
+/* El atributo [hidden] debe ganarle a cualquier display: la hoja de pedido
+   y la barra se ocultan con `.hidden = true` desde el controlador. */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body.is-locked { overflow: hidden; }
+
+img { max-width: 100%; display: block; }
+
+.app { max-width: var(--ancho); margin: 0 auto; padding: 0 16px 120px; }
