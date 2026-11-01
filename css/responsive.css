@@ -9,11 +9,10 @@
 }
 
 @media (min-width: 700px) {
-  .app { padding-bottom: 140px; }
   .footer { grid-template-columns: 1fr 1fr; }
   .footer__note { grid-column: 1 / -1; }
-  .sheet { border-radius: 20px; margin-bottom: 24px; max-height: 82vh; }
-  .sheet-overlay { align-items: center; padding: 20px; }
+  .sheet { border-radius: var(--radio); margin-bottom: var(--espacio-5); max-height: var(--alto-hoja-escritorio); }
+  .sheet-overlay { align-items: center; padding: var(--espacio-5); }
   .about { grid-template-columns: 1fr 1fr; align-items: start; }
   .about__text { grid-column: 1 / -1; }
   .about__cta { grid-column: 1 / -1; }
@@ -26,6 +25,5 @@
 /* Dos columnas solo con pantalla grande: cada tarjeta queda en ~425px,
    ancho suficiente para que el nombre no se parta. */
 @media (min-width: 1000px) {
-  :root { --ancho: 860px; }
   .products { display: grid; grid-template-columns: 1fr 1fr; }
 }
