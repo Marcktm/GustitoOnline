@@ -84,7 +84,6 @@
   --alto-mantenimiento: 70vh;
   --ancho-mensaje: 34ch;
   --ancho-contacto: 280px;
-  --lado-mapa: 320px;
 }
 
 @media (min-width: 700px) {

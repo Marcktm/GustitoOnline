@@ -34,7 +34,7 @@ body, button, input, textarea, select {
 }
 
 .hero__title, .category__title, .sheet__title, .sheet__total strong,
-.cartbar__total, .empty__title, .maintenance__title, .about__closing {
+.cartbar__total, .empty__title, .maintenance__title {
   font-family: var(--fuente-titulo);
   font-weight: var(--peso-titulo);
 }
