@@ -1,0 +1,10 @@
+{
+  "name": "gustito-online",
+  "private": true,
+  "description": "Carta digital de Gustito a Salta. Sin dependencias: este archivo solo declara módulos ES y los comandos de verificación.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "check": "node tools/check-arquitectura.mjs"
+  }
+}
