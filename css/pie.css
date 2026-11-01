@@ -26,13 +26,16 @@
 }
 
 .footer__link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-height: var(--alto-busqueda);          /* área táctil de 44 px */
   color: var(--tinta);
   text-decoration: none;
   font-size: var(--texto);
-  padding: var(--espacio-1) 0;
-  border-bottom: var(--linea) solid transparent;
 }
-.footer__link:hover { border-bottom-color: var(--filete); }
+.footer__link:hover .footer__text { text-decoration: underline; text-underline-offset: 3px; }
+.footer__link:focus-visible { outline: 2px solid var(--terracota); outline-offset: 2px; border-radius: var(--radio-s); }
 
-.footer__note { font-size: var(--texto-etiqueta); color: var(--tinta-2); margin: 0; }
+/* Íconos de dirección, WhatsApp e Instagram: trazo fino en el marrón del logo. */
+.footer__icon { flex: none; color: var(--tinta-logo); }
