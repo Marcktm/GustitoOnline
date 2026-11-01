@@ -41,14 +41,13 @@
 }
 
 /* Nombre con la letra del logo (imagen recortada del logo original) */
-.hero__title--logo { margin: var(--espacio-3) 0 var(--espacio-2); line-height: 0; }
+.hero__title--logo { margin: var(--espacio-3) 0 var(--espacio-4); line-height: 0; }
 .hero__logo {
   display: inline-block;
   width: var(--ancho-logo);
   height: auto;
 }
 
-.hero__tagline { margin: 0 0 var(--espacio-4); color: var(--tinta-2); font-size: var(--texto); }
 
 /* Estado abierto / cerrado */
 .status {

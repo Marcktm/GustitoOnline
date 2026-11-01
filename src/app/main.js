@@ -140,7 +140,7 @@ function renderContacto() {
   $('#map-link').href = negocio.mapsUrl;
   $('#map-link').textContent = negocio.direccion;
   document.querySelectorAll('[data-negocio="nombre"]').forEach((el) => { el.textContent = negocio.nombre; });
-  document.querySelectorAll('[data-negocio="tagline"]').forEach((el) => { el.textContent = negocio.tagline; });
+  document.querySelectorAll('[data-negocio="rubro"]').forEach((el) => { el.textContent = negocio.rubro; });
 }
 
 function avisar(texto, tono = 'info', ms = 6000) {
