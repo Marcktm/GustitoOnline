@@ -59,7 +59,6 @@ export const CONFIG = {
       {
         id: 'empanadas',
         label: 'Empanadas',
-        tagline: 'Elegí los gustos: el precio se arma solo por docena, media o unidad.',
         match: ['comida', 'empanada', 'empanadas'],
         pricing: 'bundle',
         escalones: [
@@ -77,7 +76,6 @@ export const CONFIG = {
       {
         id: 'bebidas',
         label: 'Bebidas',
-        tagline: 'Para acompañar.',
         match: ['bebida', 'bebidas'],
         pricing: 'unit',
       },
